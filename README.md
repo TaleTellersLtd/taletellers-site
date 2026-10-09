@@ -1,2 +1,45 @@
 # taletellers-site
-Our main page for TaleTellers.co.uk
+
+Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a small UK games studio.
+
+Plain static HTML/CSS served by GitHub Pages. No build step, no JavaScript, no external fonts,
+CDNs, trackers or analytics. Do not change or delete `CNAME` (it sets the custom domain).
+
+## Files
+
+| File | Purpose |
+| --- | --- |
+| `index.html` | The whole site: hero, projects, about, contact, footer |
+| `styles.css` | All styles (dark theme, CSS/SVG art, responsive, reduced-motion) |
+| `404.html` | "Page not found" page. Self-contained (inline CSS, data-URI favicon) because GitHub Pages serves it at any missing path, however deep |
+| `favicon.svg` | Site icon |
+| `CNAME` | Custom domain for GitHub Pages - leave alone |
+
+## Preview locally
+
+Either open `index.html` directly in a browser (double-click it), or run a local server from this folder:
+
+```
+python -m http.server 8000
+```
+
+then visit http://localhost:8000/ (and http://localhost:8000/404.html for the error page).
+The 404 page's "Back" button links to `/`, which only goes home when served from the site root.
+
+## TODO before publishing
+
+Placeholders are marked with `TODO` in the HTML (visible ones use a dashed amber `.todo` box, so they are
+hard to miss). Search for `TODO` to find them all.
+
+- Contact email (index.html, Contact section).
+- Social / community links: Discord, YouTube, X/Bluesky, CurseForge profile - only real ones.
+- Footer legal details: Company No., place of registration (Scotland or England & Wales), registered office address.
+  UK companies must show these on their website.
+- Verify the Hyguns CurseForge URL (`https://www.curseforge.com/hytale/mods/hyguns`).
+- Download links for All Stone To Tools and All Wools To String.
+- One-line descriptions for All Stone To Tools and All Wools To String; download count for All Wools To String.
+- Verify all download figures (Hyguns 85K+, Hyguns Plugin 64K+, All Stone To Tools 186K+, combined 337K+), as of Oct 2026.
+- `og:image`: add a 1200x630 PNG and an absolute `og:image` URL (commented out in `<head>`); then switch
+  `twitter:card` to `summary_large_image`.
+- Optional: team/founder photo and short bio (About section).
+- Update the copyright year when needed (it is static text, no JavaScript).
