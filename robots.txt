@@ -1,0 +1,3 @@
+User-agent: *
+Allow: /
+Sitemap: https://taletellers.co.uk/sitemap.xml

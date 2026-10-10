@@ -14,6 +14,9 @@ CDNs, trackers or analytics. Do not change or delete `CNAME` (it sets the custom
 | `404.html` | "Page not found" page. Self-contained (inline CSS, data-URI favicon) because GitHub Pages serves it at any missing path, however deep |
 | `favicon.svg` | Site icon |
 | `CNAME` | Custom domain for GitHub Pages - leave alone |
+| `robots.txt`, `sitemap.xml` | Search discovery for the homepage (404 excluded) |
+| `SITE_DECISIONS.md` | Audit items requiring John's facts or approval and remaining verification |
+| `scripts/check_site.py` | Offline source checks, including the 404 inline CSS CSP hash |
 
 ## Preview locally
 
@@ -26,7 +29,31 @@ python -m http.server 8000
 then visit http://localhost:8000/ (and http://localhost:8000/404.html for the error page).
 The 404 page's "Back" button links to `/`, which only goes home when served from the site root.
 
+## Check locally
+
+There are no build/lint tools or dependencies. Run the offline source checks with
+Python's standard library:
+
+```
+python scripts/check_site.py
+```
+
+Both pages declare Content Security Policy and a no-referrer policy in their head.
+The homepage allows same-origin CSS; platform colour gradients live in `styles.css`.
+The 404 stays self-contained and allows only its hashed inline style block. If that
+CSS changes, recalculate its SHA-256 hash over the exact text between `<style>` and
+`</style>` (including whitespace, with HTML line endings normalised to LF) and update
+the CSP meta tag; the checker detects a stale hash.
+
+GitHub Pages cannot apply custom response headers from a repository `_headers` file.
+Response-only protections and live header checks are tracked in `SITE_DECISIONS.md`.
+The audit's mobile backdrop-blur change awaits performance profiling; decorative
+hero animation is disabled for all visitors. No scripts, trackers or analytics added.
+
 ## TODO before publishing
+
+See `SITE_DECISIONS.md` for the audit's owner decisions, including privacy notice
+facts and approved social artwork. Keep unresolved company claims under review.
 
 Placeholders are marked with `TODO` in the HTML (visible ones use a dashed amber `.todo` box, so they are
 hard to miss). Search for `TODO` to find them all.

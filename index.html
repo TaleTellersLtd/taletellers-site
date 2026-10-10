@@ -2,9 +2,12 @@
 <html lang="en-GB">
 <head>
   <meta charset="utf-8">
+  <meta http-equiv="Content-Security-Policy" content="default-src 'none'; style-src 'self'; img-src 'self' data:; base-uri 'none'; form-action 'none'">
+  <meta name="referrer" content="no-referrer">
   <meta name="viewport" content="width=device-width, initial-scale=1">
   <title>TaleTellers - games, mods and worlds</title>
   <meta name="description" content="TaleTellers is a small independent UK games studio making Hytale content, Minecraft mods and future Roblox games. Makers of Hyguns and All Stone To Tools.">
+  <link rel="canonical" href="https://taletellers.co.uk/">
   <meta name="theme-color" content="#0b0a12">
   <link rel="icon" href="favicon.svg" type="image/svg+xml">
   <link rel="stylesheet" href="styles.css">
@@ -285,17 +288,17 @@
         </div>
 
         <ul class="worlds" aria-label="What we make">
-          <li style="--glyph: linear-gradient(135deg, #6ad8c7, #2c7f86)">
+          <li class="world-hytale">
             <span class="glyph" aria-hidden="true"></span>
             <h3>Hytale <span class="tag tag-now">Now</span></h3>
-            <p>Hyguns, the Hyguns Plugin, a server and modding tools.</p>
+            <p>Hyguns and the Hyguns Plugin, with a server and modding tools planned.</p>
           </li>
-          <li style="--glyph: linear-gradient(135deg, #8fcf6a, #3f7a35)">
+          <li class="world-minecraft">
             <span class="glyph" aria-hidden="true"></span>
             <h3>Minecraft <span class="tag tag-ongoing">Ongoing</span></h3>
             <p>All Stone To Tools, All Wools To String and more mods.</p>
           </li>
-          <li style="--glyph: linear-gradient(135deg, #b3a4ff, #5b4bc4)">
+          <li class="world-roblox">
             <span class="glyph" aria-hidden="true"></span>
             <h3>Roblox <span class="tag tag-next">Planned</span></h3>
             <p>Our first original Roblox games.</p>
