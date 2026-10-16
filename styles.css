@@ -400,9 +400,9 @@ a:hover { color: #fff; }
 .cover-stone { --cover: radial-gradient(circle at 50% 60%, #4d5466, #1b1d29 70%); }
 .cover-wool { --cover: radial-gradient(circle at 50% 60%, #6b3a5e, #221530 70%); }
 .cover-slabs { --cover: radial-gradient(circle at 50% 60%, #6a5332, #221a12 70%); }
-.cover-logos { display: flex; justify-content: center; align-items: center; gap: 1.25rem; padding-top: 0.5rem; }
+.cover-logos { display: flex; justify-content: center; align-items: center; }
 .cover-logos img {
-  height: 7.5rem;
+  height: 8.75rem;
   width: auto;
   filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.35));
 }

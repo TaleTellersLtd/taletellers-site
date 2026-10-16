@@ -65,7 +65,7 @@ hard to miss). Search for `TODO` to find them all.
 - Verify the Hyguns CurseForge URL (`https://www.curseforge.com/hytale/mods/hyguns`).
 - Download links for All Stone To Tools and All Wools To String.
 - One-line descriptions for All Stone To Tools and All Wools To String; download count for All Wools To String.
-- Verify all download figures (Hyguns 85K+, Hyguns Plugin 64K+, All Stone To Tools 186K+, combined 337K+), as of Oct 2026.
+- Download figures verified on CurseForge 16 Oct 2026: Hyguns 87.1K, Hyguns Plugin 65.1K, All Stone To Tools 188.9K, All Slabs To Blocks 80.8K, All Wools To String 3.1K (combined 425K+). Update them now and then.
 - `og:image`: add a 1200x630 PNG and an absolute `og:image` URL (commented out in `<head>`); then switch
   `twitter:card` to `summary_large_image`.
 - Optional: team/founder photo and short bio (About section).
