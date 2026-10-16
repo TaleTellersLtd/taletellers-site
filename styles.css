@@ -399,6 +399,13 @@ a:hover { color: #fff; }
 .cover-hyguns { --cover: radial-gradient(circle at 50% 60%, #7a2a1c, #2a1020 70%); }
 .cover-stone { --cover: radial-gradient(circle at 50% 60%, #4d5466, #1b1d29 70%); }
 .cover-wool { --cover: radial-gradient(circle at 50% 60%, #6b3a5e, #221530 70%); }
+.cover-slabs { --cover: radial-gradient(circle at 50% 60%, #6a5332, #221a12 70%); }
+.cover-logos { display: flex; justify-content: center; align-items: center; gap: 1.25rem; padding-top: 0.5rem; }
+.cover-logos img {
+  height: 7.5rem;
+  width: auto;
+  filter: drop-shadow(0 6px 0 rgba(0, 0, 0, 0.35));
+}
 .cover-server { --cover: radial-gradient(circle at 50% 60%, #34307a, #141236 70%); }
 .cover-tools { --cover: radial-gradient(circle at 50% 60%, #1f5a58, #0f1f26 70%); }
 
