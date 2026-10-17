@@ -11,12 +11,16 @@ CDNs, trackers or analytics. Do not change or delete `CNAME` (it sets the custom
 | --- | --- |
 | `index.html` | The whole site: hero, projects, about, contact, footer |
 | `styles.css` | All styles (dark theme, CSS/SVG art, responsive, reduced-motion) |
+| `privacy.html` | Short privacy page (no cookies/analytics, GitHub Pages logs, contact). Linked from the footer of `index.html` and itself; not on `404.html` (see below) |
 | `404.html` | "Page not found" page. Self-contained (inline CSS, data-URI favicon) because GitHub Pages serves it at any missing path, however deep |
 | `favicon.svg` | Site icon |
 | `CNAME` | Custom domain for GitHub Pages - leave alone |
 | `robots.txt`, `sitemap.xml` | Search discovery for the homepage (404 excluded) |
 | `SITE_DECISIONS.md` | Audit items requiring John's facts or approval and remaining verification |
 | `scripts/check_site.py` | Offline source checks, including the 404 inline CSS CSP hash |
+
+`404.html` has no footer and its inline CSS is pinned by a CSP hash, so it has no Privacy link;
+adding one means editing that CSS and recalculating the hash (see below).
 
 ## Preview locally
 

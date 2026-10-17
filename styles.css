@@ -603,6 +603,18 @@ a:hover { color: #fff; }
 .site-footer p { margin: 0; }
 .legal { line-height: 1.9; }
 .disclaimer { font-size: 0.8rem; opacity: 0.9; }
+.footer-links a { display: inline-block; padding-block: 0.5rem; }
+
+/* ---------- Privacy page ---------- */
+.prose h1 {
+  margin: 0;
+  font-family: var(--serif);
+  font-size: clamp(1.9rem, 6vw, 3rem);
+  line-height: 1.1;
+  letter-spacing: -0.01em;
+}
+.prose h2 { margin: 2rem 0 0; font-size: 1.3rem; }
+.prose .section-intro { margin-top: 1rem; }
 
 /* ---------- Motion preferences ---------- */
 @media (prefers-reduced-motion: reduce) {

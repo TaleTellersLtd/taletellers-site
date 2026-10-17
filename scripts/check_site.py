@@ -90,16 +90,19 @@ def check_page(name):
     else:
         assert "style-src 'self'" in policy
         assert any(tag == "link" and attrs.get("rel") == "canonical"
-                   and attrs.get("href") == HOME for tag, attrs in page.tags)
+                   and attrs.get("href") in (HOME, HOME + name) for tag, attrs in page.tags)
     print(f"PASS: {name} local links, IDs, landmarks, SVGs, metadata and CSP")
 
 
 def main():
-    for name in ("index.html", "404.html"):
+    for name in ("index.html", "privacy.html", "404.html"):
         check_page(name)
+    for name in ("index.html", "privacy.html"):
+        footer = (ROOT / name).read_text(encoding="utf-8").split('<footer class="site-footer">')[1]
+        assert '<a href="privacy.html">Privacy</a>' in footer, f"{name}: missing footer Privacy link"
     namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     sitemap = ET.parse(ROOT / "sitemap.xml")
-    assert [loc.text for loc in sitemap.findall("s:url/s:loc", namespace)] == [HOME]
+    assert [loc.text for loc in sitemap.findall("s:url/s:loc", namespace)] == [HOME, HOME + "privacy.html"]
     robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
     assert "User-agent: *" in robots and "Allow: /" in robots
     assert "Disallow:" not in robots and f"Sitemap: {HOME}sitemap.xml" in robots
