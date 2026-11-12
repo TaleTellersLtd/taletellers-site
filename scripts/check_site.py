@@ -57,7 +57,9 @@ def check_page(name):
     assert "'unsafe-inline'" not in policy and "'unsafe-eval'" not in policy
     assert source.index('http-equiv="Content-Security-Policy"') < source.index('<link')
     for tag, attrs in page.tags:
-        assert tag != "script", f"{name}: unexpected script"
+        if tag == "script":
+            assert attrs.get("src") and not urlsplit(attrs["src"]).scheme, f"{name}: only a local script file is allowed"
+            assert "script-src 'self'" in policy, f"{name}: script without script-src 'self'"
         assert "style" not in attrs, f"{name}: CSP would block a style attribute"
         assert not any(key.startswith("on") for key in attrs), f"{name}: inline handler"
         if tag == "svg":
@@ -95,14 +97,14 @@ def check_page(name):
 
 
 def main():
-    for name in ("index.html", "privacy.html", "404.html"):
+    for name in ("index.html", "work.html", "privacy.html", "404.html"):
         check_page(name)
-    for name in ("index.html", "privacy.html"):
+    for name in ("index.html", "work.html", "privacy.html"):
         footer = (ROOT / name).read_text(encoding="utf-8").split('<footer class="site-footer">')[1]
         assert '<a href="privacy.html">Privacy</a>' in footer, f"{name}: missing footer Privacy link"
     namespace = {"s": "http://www.sitemaps.org/schemas/sitemap/0.9"}
     sitemap = ET.parse(ROOT / "sitemap.xml")
-    assert [loc.text for loc in sitemap.findall("s:url/s:loc", namespace)] == [HOME, HOME + "privacy.html"]
+    assert [loc.text for loc in sitemap.findall("s:url/s:loc", namespace)] == [HOME, HOME + "work.html", HOME + "privacy.html"]
     robots = (ROOT / "robots.txt").read_text(encoding="utf-8")
     assert "User-agent: *" in robots and "Allow: /" in robots
     assert "Disallow:" not in robots and f"Sitemap: {HOME}sitemap.xml" in robots
