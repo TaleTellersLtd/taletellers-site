@@ -741,8 +741,9 @@ a:hover { text-decoration-thickness: 2px; }
   .js .hero-head .line:nth-child(2) > span { transition-delay: 90ms; }
   .js .hero.is-in .line > span { transform: none; }
 
-  .js .hero .chapter-mark,
-  .js .hero-side { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease 380ms, transform 800ms var(--ease-out) 380ms; }
+  .js .hero .chapter-mark { opacity: 0; transform: translateY(14px); transition: opacity 600ms ease 380ms, transform 800ms var(--ease-out) 380ms; }
+  /* The paragraph is the largest text on a phone: painted from the first frame (no fade), so it never delays LCP */
+  .js .hero-side { transform: translateY(14px); transition: transform 800ms var(--ease-out) 380ms; }
   .js .hero .chapter-mark { transition-delay: 0ms; }
   .js .hero.is-in .chapter-mark,
   .js .hero.is-in .hero-side { opacity: 1; transform: none; }
