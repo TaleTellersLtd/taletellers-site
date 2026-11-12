@@ -89,6 +89,7 @@
   --edge: max(var(--pad), calc((100vw - 80rem) / 2));
 
   --ease-out: cubic-bezier(0.23, 1, 0.32, 1);
+  --ease-in-out: cubic-bezier(0.77, 0, 0.175, 1);
 }
 
 *,
@@ -993,7 +994,7 @@ a:hover { text-decoration-thickness: 2px; }
   top: 0;
   width: 17cqw;
   height: 17cqw;
-  margin: 9cqw 0 0 -8.5cqw;
+  margin: 12cqw 0 0 -8.5cqw;
   border-radius: 50%;
   background: rgba(31, 27, 22, 0.3);
   box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
@@ -1091,8 +1092,8 @@ a:hover { text-decoration-thickness: 2px; }
   /* --- Cover: the logo's plus stars glint, its single pixels blink, now and then --- */
   @keyframes glint {
     0%, 84%, 100% { opacity: 0; transform: scale(0.556); }
-    86% { opacity: 1; transform: scale(0.556); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
-    91% { opacity: 1; transform: scale(1); animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1); }
+    86% { opacity: 1; transform: scale(0.556); animation-timing-function: var(--ease-out); }
+    91% { opacity: 1; transform: scale(1); animation-timing-function: var(--ease-in-out); }
     98% { opacity: 1; transform: scale(0.556); }
   }
   @keyframes blink {
@@ -1119,19 +1120,19 @@ a:hover { text-decoration-thickness: 2px; }
      0-1s the home screen; 1-1.6s the reminder drops in; it is read until 3.6s; a tap at 3.8s;
      4.1-4.7s the lodge's meetings open; they hold until 9s; then back to the home screen. */
   @keyframes loop-note {
-    0%, 10% { opacity: 0; transform: translateY(-125%); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    0%, 10% { opacity: 0; transform: translateY(-125%); animation-timing-function: var(--ease-out); }
     16%, 37% { opacity: 1; transform: none; animation-timing-function: ease-out; }
     38.5% { opacity: 1; transform: scale(0.97); animation-timing-function: ease-out; }
-    41% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    41% { opacity: 1; transform: none; animation-timing-function: var(--ease-out); }
     45%, 100% { opacity: 0; transform: translateY(-40%); }
   }
   @keyframes loop-tap {
-    0%, 36.5% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    0%, 36.5% { opacity: 0; transform: scale(0.6); animation-timing-function: var(--ease-out); }
     38.5% { opacity: 1; transform: scale(1); animation-timing-function: ease-out; }
     43%, 100% { opacity: 0; transform: scale(1.35); }
   }
   @keyframes loop-meeting {
-    0%, 41% { opacity: 0; transform: translateY(5%); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    0%, 41% { opacity: 0; transform: translateY(5%); animation-timing-function: var(--ease-out); }
     47%, 90% { opacity: 1; transform: none; animation-timing-function: ease; }
     96%, 100% { opacity: 0; transform: none; }
   }
@@ -1143,9 +1144,9 @@ a:hover { text-decoration-thickness: 2px; }
      The lift uses "translate", so it never fights the reveal, which uses "transform". --- */
   @media (hover: hover) and (pointer: fine) {
     .plate .frame,
-    .case-media .shot-phone { transition: translate 320ms var(--ease-out); }
-    .js .plate[data-reveal] .plate-b { transition: opacity 500ms ease 350ms, transform 900ms var(--ease-out) 350ms, translate 320ms var(--ease-out); }
-    .js .case-media[data-reveal] .shot-phone { transition: opacity 500ms ease 300ms, transform 900ms var(--ease-out) 300ms, translate 320ms var(--ease-out); }
+    .case-media .shot-phone { transition: translate 260ms var(--ease-out); }
+    .js .plate[data-reveal] .plate-b { transition: opacity 500ms ease 350ms, transform 900ms var(--ease-out) 350ms, translate 260ms var(--ease-out); }
+    .js .case-media[data-reveal] .shot-phone { transition: opacity 500ms ease 300ms, transform 900ms var(--ease-out) 300ms, translate 260ms var(--ease-out); }
     .plate:hover .frame { translate: 0 -4px; }
     .plate:hover .plate-b { translate: 0 -7px; }
     .case-media:hover .shot-phone { translate: 0 -6px; }

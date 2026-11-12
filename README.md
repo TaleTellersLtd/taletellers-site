@@ -7,7 +7,7 @@
 > previous site.
 >
 > **Motion preview (branch `effects-preview-20261112`, not live).** `effects.js` (home page only, deferred, about
-> 3.7 KB gzipped) and the "Effects" part of `styles.css` add: drifting and twinkling stars and a glinting logo on
+> 3.9 KB gzipped) and the "Effects" part of `styles.css` add: drifting and twinkling stars and a glinting logo on
 > the cover, a phone that plays a 10-second loop of the Province demo, a page turn into Chapter II's night sky,
 > count-up prices and download figures, and tilting cards with pixel sparkles. Rules the check enforces: every
 > `@keyframes` and every looping animation sits inside `@media (prefers-reduced-motion: no-preference)`, loops only
