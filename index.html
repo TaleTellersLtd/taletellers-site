@@ -12,8 +12,9 @@
   <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
   <link rel="preload" href="fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=7">
+  <link rel="stylesheet" href="styles.css?v=8">
   <script src="site.js?v=5"></script>
+  <script src="effects.js?v=1" defer></script>
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TaleTellers">
@@ -47,10 +48,15 @@
 
   <main id="main">
     <!-- ============ THE COVER: who we are ============ -->
-    <section class="cover" aria-labelledby="site-title">
+    <section class="cover" aria-labelledby="site-title" data-live>
+      <!-- EFFECTS (motion preview, 12 Nov 2026): far stars that lean with the pointer, a few that twinkle. Decoration only. -->
+      <div class="stars" aria-hidden="true">
+        <i class="stars-far" data-drift="5"></i>
+        <span class="stars-near" data-drift="10"><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i></span>
+      </div>
       <div class="wrap cover-inner">
         <!-- OLD SITE SKY: moon and stars reused from the live site at John's request -->
-        <svg class="cover-sky" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
+        <svg class="cover-sky" data-drift="16" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
           <defs>
             <mask id="m-moon-cover">
               <circle cx="478" cy="78" r="30" fill="#fff"/>
@@ -69,11 +75,17 @@
             <rect x="560" y="40" width="3" height="3"/>
           </g>
         </svg>
-        <img class="cover-logo" src="images/logo-mark.svg?v=4" width="160" height="160" alt="">
+        <!-- The logo file is unchanged; the four squares sit exactly on its pixel stars and make them glint and blink. -->
+        <span class="cover-mark">
+          <img class="cover-logo" src="images/logo-mark.svg?v=4" width="160" height="160" alt="">
+          <i class="glint glint-a"></i><i class="glint glint-b"></i><i class="blink blink-a"></i><i class="blink blink-b"></i>
+        </span>
         <div class="cover-text">
           <h1 id="site-title">TaleTellers</h1>
           <p class="cover-line">A one-person Scottish studio that uses trained AI agents to build websites and video game mods.</p>
         </div>
+        <!-- Shown by effects.js only when something on the page moves by itself (WCAG 2.2.2). -->
+        <button class="motion-toggle" type="button" hidden>Pause motion</button>
       </div>
     </section>
 
@@ -203,8 +215,16 @@
 
           <li class="plate plate-app" data-reveal="1">
             <figure class="plate-figure">
-              <div class="frame frame-phone plate-a">
-                <img src="images/lodge272-app.webp" width="520" height="880" loading="lazy" alt="A lodge site on a phone showing the next meeting and an Add to my calendar button.">
+              <!-- PHONE LOOP: real screens of the PGL concept demo; the reminder card is HTML. Without motion it is one still frame. -->
+              <div class="frame frame-phone plate-a phone-loop" data-live>
+                <img class="loop-home" src="images/pgl-phone.webp" width="520" height="1125" loading="lazy" alt="A Province’s site on a phone. A reminder arrives for tonight’s meeting; one tap opens the lodge’s next meetings.">
+                <img class="loop-meeting" src="images/pgl-app-meeting.webp" width="375" height="812" loading="lazy" alt="">
+                <div class="loop-note" aria-hidden="true">
+                  <p class="loop-from"><img src="images/pgl-crest.webp" width="72" height="72" loading="lazy" alt=""> <span>Provincial Grand Lodge of Linlithgowshire</span> <span>now</span></p>
+                  <p class="loop-title">Tonight, 7.30pm</p>
+                  <p class="loop-text">Entered Apprentice degree, St John Crofthead No. 374, Fauldhouse</p>
+                </div>
+                <i class="loop-tap"></i>
               </div>
               <div class="frame plate-b">
                 <img src="images/admin-reminder-confirm.webp" width="560" height="431" loading="lazy" alt="The admin panel asking: This will send a message to 45 phones. Send it?">
@@ -310,15 +330,51 @@
     </section>
 
     <!-- ============ CHAPTER II: WORLDS ============ -->
-    <div class="chapter-page" id="chapter-two">
-      <div class="wrap" data-reveal>
-        <p class="chapter-no">Chapter II</p>
-        <p class="chapter-name">Worlds</p>
-        <p class="epigraph">In which the people who build lodge websites turn out to make mods for Hytale and Minecraft as well.</p>
+    <!-- THE PAGE TURN: where scroll timelines exist and motion is allowed, this page pins and turns on its spine to
+         show the night sky under it (styles.css, "The page turn"). Everywhere else it is the plain page it always was. -->
+    <div class="chapter-turn" id="chapter-two">
+      <div class="chapter-stage">
+        <div class="stars turn-sky" aria-hidden="true" data-live>
+          <i class="stars-far"></i>
+          <i class="shooting"></i>
+          <span class="stars-near"><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i></span>
+          <!-- OLD SITE SKY again: the same moon and stars as the top of Chapter II, shown here instead while the page turns -->
+          <svg class="sky turn-moon" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
+            <defs>
+              <mask id="m-moon-turn">
+                <circle cx="478" cy="78" r="30" fill="#fff"/>
+                <circle cx="492" cy="68" r="26" fill="#000"/>
+              </mask>
+            </defs>
+            <circle cx="478" cy="78" r="30" fill="#f1eadc" mask="url(#m-moon-turn)"/>
+            <g fill="#f1eadc">
+              <rect x="90" y="60" width="4" height="4"/>
+              <rect x="160" y="110" width="3" height="3"/>
+              <rect x="250" y="40" width="4" height="4"/>
+              <rect x="330" y="90" width="3" height="3"/>
+              <rect x="400" y="30" width="4" height="4"/>
+              <rect x="540" y="140" width="3" height="3"/>
+              <rect x="40" y="150" width="3" height="3"/>
+              <rect x="560" y="40" width="3" height="3"/>
+            </g>
+          </svg>
+        </div>
+        <div class="chapter-page">
+          <div class="wrap" data-reveal>
+            <p class="chapter-no">Chapter II</p>
+            <p class="chapter-name">Worlds</p>
+            <p class="epigraph">In which the people who build lodge websites turn out to make mods for Hytale and Minecraft as well.</p>
+          </div>
+        </div>
       </div>
     </div>
 
     <section class="worlds" id="worlds" aria-labelledby="worlds-title">
+      <div class="stars worlds-stars" aria-hidden="true" data-live>
+        <i class="stars-far"></i>
+        <span class="stars-near"><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i></span>
+        <i class="shooting"></i>
+      </div>
       <div class="wrap">
         <!-- OLD SITE SKY: moon and stars reused from the live site at John's request -->
         <svg class="sky" viewBox="0 0 600 180" aria-hidden="true" focusable="false">

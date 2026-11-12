@@ -21,8 +21,21 @@ CC0 needs no credit; the footer credits it anyway.
 - `images/logo-mark.svg` (header) and `favicon.svg`: the TaleTellers logo, logo v4
   (`brand/logo/rebrand-20261112/logo_v4.svg`, John 12 Nov 2026). Swap these two files to change it everywhere.
 - The moon and stars at the top of Chapter II are the sky pieces of the old live site's hero SVG, reused unchanged
-  at John's request. They are static, as on the live site (its twinkle animation was removed in an earlier audit,
-  and `scripts/check_site.py` fails any continuous animation).
+  at John's request. The motion preview (12 Nov 2026) uses the same SVG a second time, under the turning page. The
+  extra stars, the logo's glints and the card sparkles are small CSS squares, not drawings. Anything that loops only
+  runs when the visitor allows motion, and "Pause motion" stops it (`scripts/check_site.py` checks both).
+
+### The phone loop in "The app, with notifications" (motion preview, 12 Nov 2026)
+
+Real screenshots of our own Provincial Grand Lodge concept demo, sample data, no faces or portraits in any frame.
+
+| File | What it is | Source |
+| --- | --- | --- |
+| `images/pgl-phone.webp` | The Province's home screen at phone width. Already on the site; now also the loop's first frame and its still. | As before (12 Nov 2026 screenshot). |
+| `images/pgl-app-meeting.webp` | "Next meetings" of Lodge St John Crofthead No. 374 at 375 x 812, saved as WebP (34 KB). The loop's last frame. | `Documents/TaleTellers/website-notes/readiness-20261109/previews/pgl-fix-20261112/final-374-375-scrolled.png` |
+| `images/pgl-crest.webp` | The Province's crest, 72 x 72 (3 KB), for the reminder card. | Cropped from `images/pgl-phone.webp` (104 x 104 px at 25, 123). |
+
+The reminder card itself is HTML and CSS, with the demo's own sample meeting as its text.
 
 ## Fonts (self-hosted in `fonts/`)
 

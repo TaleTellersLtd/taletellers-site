@@ -5,6 +5,15 @@
 > slider; the pages work without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo: swap
 > `images/logo-mark.svg` (header) and `favicon.svg`. Credits: `IMAGE_CREDITS.md`. Older notes below describe the
 > previous site.
+>
+> **Motion preview (branch `effects-preview-20261112`, not live).** `effects.js` (home page only, deferred, about
+> 3.7 KB gzipped) and the "Effects" part of `styles.css` add: drifting and twinkling stars and a glinting logo on
+> the cover, a phone that plays a 10-second loop of the Province demo, a page turn into Chapter II's night sky,
+> count-up prices and download figures, and tilting cards with pixel sparkles. Rules the check enforces: every
+> `@keyframes` and every looping animation sits inside `@media (prefers-reduced-motion: no-preference)`, loops only
+> run on `.is-live` (on screen), and the "Pause motion" button (`.motion-toggle`) stops them. The page turn and the
+> parallax are CSS scroll-driven animations inside `@supports (animation-timeline: view())`; other browsers get the
+> plain page.
 
 Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a small UK games studio.
 

@@ -639,7 +639,8 @@ a:hover { text-decoration-thickness: 2px; }
   line-height: 1;
   letter-spacing: -0.02em;
   color: var(--sky);
-  font-variant-numeric: lining-nums;
+  /* Tabular figures: the count-up in effects.js must not change the width of the number */
+  font-variant-numeric: lining-nums tabular-nums;
 }
 .tale-stats dt { color: var(--on-night-soft); font-size: var(--step-small); }
 
@@ -861,7 +862,8 @@ a:hover { text-decoration-thickness: 2px; }
 .site-header-night { background: var(--night); }
 .site-header-night .brand span,
 .site-header-night .site-nav a { color: var(--on-night); }
-.site-header-night :focus-visible { outline-color: var(--sky); }
+.site-header-night :focus-visible,
+.cover :focus-visible { outline-color: var(--sky); }
 .cover { position: relative; overflow: hidden; background: var(--night); color: var(--on-night); }
 .cover-inner {
   position: relative;
@@ -871,7 +873,8 @@ a:hover { text-decoration-thickness: 2px; }
   padding-block: clamp(1.75rem, 3.5vw, 3rem) clamp(2.25rem, 4.5vw, 3.75rem);
 }
 .cover-sky { position: absolute; right: 0; top: 50%; width: min(42%, 30rem); height: auto; transform: translateY(-50%); opacity: 0.85; pointer-events: none; }
-.cover-logo { position: relative; flex: none; width: clamp(8.5rem, 12vw, 10.5rem); height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
+.cover-mark { position: relative; flex: none; width: clamp(8.5rem, 12vw, 10.5rem); }
+.cover-logo { width: 100%; height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
 .cover-text { position: relative; max-width: 36rem; }
 .cover h1 { color: var(--on-night); font-size: clamp(3.25rem, 6.4vw, 5.75rem); line-height: 0.95; }
 .cover-line { margin: 0.9rem 0 0; font-size: var(--step-lead); line-height: 1.4; color: var(--on-night); }
@@ -879,8 +882,405 @@ a:hover { text-decoration-thickness: 2px; }
 @media (max-width: 48rem) {
   .cover-inner { flex-direction: column; text-align: center; gap: 1rem; padding-block: 1.5rem 2.25rem; }
   .cover-sky { top: 0.25rem; right: -2rem; width: 18rem; transform: none; opacity: 0.6; }
-  .cover-logo { width: clamp(6rem, 28vw, 7.25rem); }
+  .cover-mark { width: clamp(6rem, 28vw, 7.25rem); }
   .cover-text { max-width: 26rem; }
   .cover h1 { font-size: clamp(2.6rem, 11vw, 3.5rem); }
   .cover-line { margin-top: 0.6rem; }
+}
+
+/* ---------- Effects (motion preview, 12 Nov 2026) ----------
+   Part 1, here: how the new pieces look when nothing moves. This is what a visitor gets with reduced motion,
+   without effects.js, or before any animation runs.
+   Part 2, below: every animation, inside ONE prefers-reduced-motion: no-preference block
+   (scripts/check_site.py fails any @keyframes or "infinite" outside such a block).
+   Loops only run under .is-live, which effects.js sets while a section is on screen, and stop under
+   .fx-paused, which the "Pause motion" button sets. */
+
+/* Star layers: small squares in the old sky's cream, with a few in the logo's blue.
+   .stars-far is one 2px square repeated with box-shadow; positions are in container units, so they keep
+   their places at every width. .tw are the few stars that twinkle. */
+.stars { position: absolute; inset: 0; overflow: hidden; pointer-events: none; container-type: size; }
+.stars-far,
+.stars-near,
+.tw,
+.shooting { position: absolute; display: block; }
+.stars-far { left: 0; top: 0; width: 2px; height: 2px; }
+.stars-near { inset: 0; }
+.tw { width: 3px; height: 3px; background: #f1eadc; }
+
+.cover .stars-far {
+  box-shadow:
+    3cqw 16cqh rgba(241, 234, 220, 0.7), 9cqw 90cqh rgba(241, 234, 220, 0.55), 21cqw 7cqh rgba(241, 234, 220, 0.6),
+    34cqw 12cqh rgba(125, 195, 224, 0.8), 47cqw 6cqh rgba(241, 234, 220, 0.55), 57cqw 93cqh rgba(241, 234, 220, 0.6),
+    63cqw 18cqh rgba(241, 234, 220, 0.7), 69cqw 80cqh rgba(125, 195, 224, 0.75), 74cqw 9cqh rgba(241, 234, 220, 0.55),
+    81cqw 91cqh rgba(241, 234, 220, 0.7), 88cqw 8cqh rgba(241, 234, 220, 0.6), 97cqw 62cqh rgba(241, 234, 220, 0.7),
+    98cqw 20cqh rgba(125, 195, 224, 0.7), 39cqw 95cqh rgba(241, 234, 220, 0.5);
+}
+.cover .tw:nth-child(1) { left: 27%; top: 9%; }
+.cover .tw:nth-child(2) { left: 54%; top: 14%; width: 4px; height: 4px; }
+.cover .tw:nth-child(3) { left: 66%; top: 62%; }
+.cover .tw:nth-child(4) { left: 94%; top: 84%; background: #7dc3e0; }
+.cover .tw:nth-child(5) { left: 1.5%; top: 72%; }
+
+/* The logo's pixel stars. Each piece sits on a star of images/logo-mark.svg (a 32-unit grid, so 1 unit = 3.125%):
+   .glint is a longer plus over each plus-shaped star; .blink is a patch of the logo's own dark that covers a
+   single pixel star for a moment. Both are invisible when still. */
+.glint,
+.blink { position: absolute; opacity: 0; pointer-events: none; }
+.glint {
+  top: 13.28%;
+  width: 14.06%;
+  aspect-ratio: 1;
+  background: #fbe7c8;
+  clip-path: polygon(38.9% 0, 61.1% 0, 61.1% 38.9%, 100% 38.9%, 100% 61.1%, 61.1% 61.1%, 61.1% 100%, 38.9% 100%, 38.9% 61.1%, 0 61.1%, 0 38.9%, 38.9% 38.9%);
+}
+.glint-a { left: 10.16%; }
+.glint-b { left: 75.78%; }
+.blink { background: #140c2c; aspect-ratio: 1; }
+.blink-a { left: 32.2%; top: 9.4%; width: 4.4%; }
+.blink-b { left: 86.1%; top: 32.5%; width: 3.9%; }
+
+/* "Pause motion": the one control for everything that moves by itself. effects.js un-hides it. */
+.motion-toggle {
+  position: absolute;
+  right: 0;
+  bottom: 0.25rem;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.55rem;
+  min-height: 44px;
+  padding: 0 0.25rem;
+  border: 0;
+  background: none;
+  color: var(--on-night-soft);
+  font: 500 1rem/1.2 var(--sans);
+  cursor: pointer;
+  touch-action: manipulation;
+}
+.motion-toggle[hidden] { display: none; }
+.motion-toggle::before { content: ""; width: 10px; height: 12px; border-inline: 3px solid currentColor; }
+.fx-paused .motion-toggle::before { border: 0; background: currentColor; clip-path: polygon(0 0, 100% 50%, 0 100%); }
+@media (hover: hover) and (pointer: fine) {
+  .motion-toggle:hover { color: var(--on-night); text-decoration: underline; text-decoration-thickness: 2px; text-underline-offset: 0.2em; }
+}
+
+/* The phone loop, as a still: the Province's home screen with the reminder on it.
+   Sizes follow the phone's own width (cqw), so the card stays in proportion in every layout. */
+.phone-loop { position: relative; container-type: inline-size; }
+.loop-meeting { position: absolute; inset: 0; height: 100%; object-fit: cover; object-position: top; opacity: 0; }
+.loop-note {
+  position: absolute;
+  left: 4%;
+  right: 4%;
+  top: 2.4%;
+  padding: 0.6em 0.75em 0.7em;
+  border-radius: 0.9em;
+  background: #fffdf8;
+  box-shadow: 0 0 0 1px rgba(51, 36, 26, 0.14), 0 0.6em 1.4em -0.5em rgba(0, 0, 0, 0.5);
+  color: #1f1b16;
+  font-size: 9px;
+  font-size: max(8px, 5.3cqw);
+  line-height: 1.25;
+}
+.loop-note p { margin: 0; max-width: none; }
+.loop-from { display: flex; align-items: center; gap: 0.45em; font-size: 0.86em; color: #5e554a; }
+.loop-from img { flex: none; width: 1.5em; height: 1.5em; border-radius: 22%; }
+.loop-from span:first-of-type { flex: 1; min-width: 0; overflow: hidden; white-space: nowrap; text-overflow: ellipsis; }
+.loop-title { padding-top: 0.3em; font-size: 1.12em; font-weight: 700; }
+.loop-tap {
+  position: absolute;
+  left: 50%;
+  top: 0;
+  width: 17cqw;
+  height: 17cqw;
+  margin: 9cqw 0 0 -8.5cqw;
+  border-radius: 50%;
+  background: rgba(31, 27, 22, 0.3);
+  box-shadow: inset 0 0 0 1px rgba(255, 255, 255, 0.55);
+  opacity: 0;
+  pointer-events: none;
+}
+
+/* The page turn, as a still: the sky under the page does not exist; the chapter page is the plain page it was. */
+.turn-sky { display: none; }
+
+/* Chapter II: a band of far stars behind the old sky at the head of the section */
+.worlds { position: relative; }
+.worlds > .wrap { position: relative; }
+.worlds-stars { inset: 0 0 auto; height: clamp(9.5rem, 17vw, 14rem); }
+.worlds-stars .stars-far {
+  box-shadow:
+    4cqw 22cqh rgba(241, 234, 220, 0.75), 11cqw 70cqh rgba(241, 234, 220, 0.6), 17cqw 34cqh rgba(125, 195, 224, 0.85),
+    25cqw 12cqh rgba(241, 234, 220, 0.7), 31cqw 58cqh rgba(241, 234, 220, 0.75), 38cqw 26cqh rgba(241, 234, 220, 0.6),
+    46cqw 78cqh rgba(125, 195, 224, 0.75), 52cqw 10cqh rgba(241, 234, 220, 0.75), 60cqw 88cqh rgba(241, 234, 220, 0.55),
+    73cqw 6cqh rgba(241, 234, 220, 0.6), 97cqw 48cqh rgba(241, 234, 220, 0.7), 2cqw 92cqh rgba(241, 234, 220, 0.55);
+}
+.worlds-stars .tw:nth-child(1) { left: 8%; top: 44%; }
+.worlds-stars .tw:nth-child(2) { left: 22%; top: 80%; background: #7dc3e0; }
+.worlds-stars .tw:nth-child(3) { left: 35%; top: 40%; width: 4px; height: 4px; }
+.worlds-stars .tw:nth-child(4) { left: 48%; top: 30%; }
+.worlds-stars .tw:nth-child(5) { left: 96%; top: 14%; }
+/* The shooting star: a pixel head with a stepped tail. Invisible until effects.js fires it. */
+.shooting {
+  width: 4px;
+  height: 4px;
+  background: #fff3dc;
+  box-shadow:
+    -5px -2px 0 rgba(251, 231, 200, 0.8), -10px -4px 0 rgba(251, 231, 200, 0.62), -15px -6px 0 rgba(251, 231, 200, 0.46),
+    -20px -8px 0 rgba(251, 231, 200, 0.32), -25px -10px 0 rgba(251, 231, 200, 0.22), -30px -12px 0 rgba(251, 231, 200, 0.14),
+    -35px -14px 0 rgba(251, 231, 200, 0.08);
+  opacity: 0;
+}
+
+/* Pixel sparkles for the project cards (hover only, see the motion block): a plus like the logo's stars and
+   two single pixels, one cream, one blue. Invisible when still. */
+.tale-top,
+.tale-lead { position: relative; }
+.tale-top::before,
+.tale-top::after,
+.tale-lead::before,
+.tale-lead::after { content: ""; position: absolute; opacity: 0; pointer-events: none; }
+.tale-top::before,
+.tale-lead::before {
+  left: 4.45rem;
+  top: -0.6rem;
+  width: 13px;
+  height: 13px;
+  background: #fbe7c8;
+  clip-path: polygon(38.5% 0, 61.5% 0, 61.5% 38.5%, 100% 38.5%, 100% 61.5%, 61.5% 61.5%, 61.5% 100%, 38.5% 100%, 38.5% 61.5%, 0 61.5%, 0 38.5%, 38.5% 38.5%);
+}
+.tale-top::after,
+.tale-lead::after { left: -0.55rem; top: 3.9rem; width: 4px; height: 4px; background: #fbe7c8; box-shadow: 5.75rem -1.5rem 0 #55d4ef; }
+.tale-lead::before { left: calc(clamp(1.5rem, 3vw, 2.5rem) + 10.3rem); top: clamp(1.5rem, 3vw, 2.5rem); }
+.tale-lead::after { left: calc(clamp(1.5rem, 3vw, 2.5rem) - 0.5rem); top: 68%; box-shadow: 12.1rem -5.5rem 0 #55d4ef; }
+
+@media (max-width: 68rem) {
+  .tale-lead::before,
+  .tale-lead::after { display: none; }
+}
+@media (max-width: 48rem) {
+  /* Phone cover: room under the line for the pause control, and stars kept to the edges, clear of the words */
+  .cover-inner { padding-bottom: 3.6rem; }
+  .motion-toggle { right: auto; left: 50%; bottom: 0.4rem; translate: -50% 0; }
+  .cover .stars-far {
+    box-shadow:
+      5cqw 10cqh rgba(241, 234, 220, 0.5), 22cqw 4cqh rgba(125, 195, 224, 0.55), 12cqw 30cqh rgba(241, 234, 220, 0.4),
+      3cqw 52cqh rgba(241, 234, 220, 0.45), 96cqw 47cqh rgba(241, 234, 220, 0.5), 2.5cqw 78cqh rgba(125, 195, 224, 0.5),
+      97cqw 70cqh rgba(241, 234, 220, 0.4), 8cqw 95cqh rgba(241, 234, 220, 0.4), 91cqw 93cqh rgba(241, 234, 220, 0.45);
+  }
+  .cover .tw:nth-child(1) { left: 19%; top: 17%; }
+  .cover .tw:nth-child(2) { left: 7%; top: 39%; }
+  .cover .tw:nth-child(3) { left: 82%; top: 36%; }
+  .cover .tw:nth-child(4) { left: 96%; top: 59%; }
+  .cover .tw:nth-child(5) { left: 3%; top: 66%; }
+}
+
+/* ---------- Effects, part 2: everything that moves ---------- */
+@media (prefers-reduced-motion: no-preference) {
+  /* --- Stars: twinkle (opacity only, so each star is its own cheap layer) --- */
+  @keyframes twinkle {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.18; }
+  }
+  .is-live .tw { animation: twinkle 4.6s ease-in-out infinite; }
+  .is-live .tw:nth-child(2) { animation-duration: 6.4s; animation-delay: -2.2s; }
+  .is-live .tw:nth-child(3) { animation-duration: 5.3s; animation-delay: -3.9s; }
+  .is-live .tw:nth-child(4) { animation-duration: 7.1s; animation-delay: -1.1s; }
+  .is-live .tw:nth-child(5) { animation-duration: 5.8s; animation-delay: -4.6s; }
+
+  /* --- Cover: the logo's plus stars glint, its single pixels blink, now and then --- */
+  @keyframes glint {
+    0%, 84%, 100% { opacity: 0; transform: scale(0.556); }
+    86% { opacity: 1; transform: scale(0.556); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    91% { opacity: 1; transform: scale(1); animation-timing-function: cubic-bezier(0.77, 0, 0.175, 1); }
+    98% { opacity: 1; transform: scale(0.556); }
+  }
+  @keyframes blink {
+    0%, 91%, 100% { opacity: 0; }
+    92%, 96% { opacity: 1; }
+  }
+  .is-live .glint { animation: glint 7.5s linear infinite; }
+  .is-live .glint-b { animation-duration: 10s; animation-delay: -3.5s; }
+  .is-live .blink { animation: blink 9s steps(1, end) infinite; animation-delay: -2s; }
+  .is-live .blink-b { animation-duration: 12.5s; animation-delay: -7s; }
+
+  /* Where the browser can link an animation to scroll: the cover's far stars fall a little behind as it leaves */
+  @keyframes sky-lag {
+    to { translate: 0 22px; }
+  }
+  @supports (animation-timeline: view()) {
+    .cover .stars { animation: sky-lag 1s linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
+  }
+
+  .motion-toggle { transition: color 160ms ease, transform 140ms var(--ease-out); }
+  .motion-toggle:active { transform: scale(0.97); }
+
+  /* --- Chapter I: the phone loop, 10 seconds ---
+     0-1s the home screen; 1-1.6s the reminder drops in; it is read until 3.6s; a tap at 3.8s;
+     4.1-4.7s the lodge's meetings open; they hold until 9s; then back to the home screen. */
+  @keyframes loop-note {
+    0%, 10% { opacity: 0; transform: translateY(-125%); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    16%, 37% { opacity: 1; transform: none; animation-timing-function: ease-out; }
+    38.5% { opacity: 1; transform: scale(0.97); animation-timing-function: ease-out; }
+    41% { opacity: 1; transform: none; animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    45%, 100% { opacity: 0; transform: translateY(-40%); }
+  }
+  @keyframes loop-tap {
+    0%, 36.5% { opacity: 0; transform: scale(0.6); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    38.5% { opacity: 1; transform: scale(1); animation-timing-function: ease-out; }
+    43%, 100% { opacity: 0; transform: scale(1.35); }
+  }
+  @keyframes loop-meeting {
+    0%, 41% { opacity: 0; transform: translateY(5%); animation-timing-function: cubic-bezier(0.23, 1, 0.32, 1); }
+    47%, 90% { opacity: 1; transform: none; animation-timing-function: ease; }
+    96%, 100% { opacity: 0; transform: none; }
+  }
+  .phone-loop.is-live .loop-note { animation: loop-note 10s linear infinite; }
+  .phone-loop.is-live .loop-tap { animation: loop-tap 10s linear infinite; }
+  .phone-loop.is-live .loop-meeting { animation: loop-meeting 10s linear infinite; }
+
+  /* --- Chapter I: screens lift a little when their plate or case is under the pointer.
+     The lift uses "translate", so it never fights the reveal, which uses "transform". --- */
+  @media (hover: hover) and (pointer: fine) {
+    .plate .frame,
+    .case-media .shot-phone { transition: translate 320ms var(--ease-out); }
+    .js .plate[data-reveal] .plate-b { transition: opacity 500ms ease 350ms, transform 900ms var(--ease-out) 350ms, translate 320ms var(--ease-out); }
+    .js .case-media[data-reveal] .shot-phone { transition: opacity 500ms ease 300ms, transform 900ms var(--ease-out) 300ms, translate 320ms var(--ease-out); }
+    .plate:hover .frame { translate: 0 -4px; }
+    .plate:hover .plate-b { translate: 0 -7px; }
+    .case-media:hover .shot-phone { translate: 0 -6px; }
+
+    /* --- Chapter II: pixel sparkles pop in steps, like sprite frames, around a card's picture --- */
+    .tale-top::before,
+    .tale-top::after,
+    .tale-lead::before,
+    .tale-lead::after { scale: 0.4; transition: opacity 160ms steps(2, end), scale 260ms steps(3, end); }
+    .tale:hover .tale-top::before,
+    .tale:hover .tale-top::after,
+    .tale:focus-within .tale-top::before,
+    .tale:focus-within .tale-top::after,
+    .tale-lead:hover::before,
+    .tale-lead:hover::after,
+    .tale-lead:focus-within::before,
+    .tale-lead:focus-within::after { opacity: 1; scale: 1; }
+    .tale:hover .tale-top::after,
+    .tale:focus-within .tale-top::after,
+    .tale-lead:hover::after,
+    .tale-lead:focus-within::after { transition-delay: 110ms; }
+  }
+
+  /* While effects.js tilts a card it sets the transform on every frame; the reveal's transition must not smooth it twice */
+  .js .is-tilting { transition: none; will-change: transform; }
+
+
+
+  /* --- The page turn ---
+     .chapter-turn is a runway: the page's own height plus 75% of a screen. The stage sticks to the top of the
+     screen for that extra scroll, and the runway's progress through it (the "contain" range) turns the leaf on
+     its left edge from flat to edge-on, uncovering the night sky that lies under it. Nothing is hidden if the
+     animation never runs: the leaf then simply scrolls away like any other block. */
+  /* The angles are not evenly spaced on purpose: the page lifts first (its edge is still off the right of the
+     screen), then these steps make that edge cross the screen at an even pace as you scroll. */
+  @keyframes page-turn {
+    0% { transform: rotateY(0deg); }
+    12% { transform: rotateY(-33deg); }
+    30% { transform: rotateY(-54deg); }
+    50% { transform: rotateY(-66deg); }
+    70% { transform: rotateY(-76deg); }
+    85% { transform: rotateY(-83deg); }
+    100% { transform: rotateY(-90deg); }
+  }
+  @keyframes page-shade {
+    to { opacity: 1; }
+  }
+  @keyframes moon-rise {
+    from { opacity: 0; translate: 0 3.5rem; }
+    to { opacity: 1; translate: 0 0; }
+  }
+  /* Chapter II's star layers: they settle into place as the page turns (20px far, 44px near), then drift
+     against the page as the sky scrolls away (24px and 56px). Background only. */
+  @keyframes sky-far {
+    0% { translate: 0 20px; }
+    42% { translate: 0 0; }
+    100% { translate: 0 24px; }
+  }
+  @keyframes sky-near {
+    0% { translate: 0 44px; }
+    42% { translate: 0 0; }
+    100% { translate: 0 56px; }
+  }
+  @supports (animation-timeline: view()) {
+
+
+    .chapter-turn { view-timeline: --turn block; background: var(--night); }
+    .chapter-turn::after { content: ""; display: block; height: 75svh; }
+    /* The eye is level with the spine (perspective-origin), so the spine stays put and the page's edge comes all the way home */
+    .chapter-stage { position: sticky; top: 0; z-index: 1; overflow: clip; perspective: 320vw; perspective-origin: 0 50%; }
+    .chapter-page {
+      position: relative;
+      display: grid;
+      align-content: center;
+      min-height: 100svh;
+      background: var(--page) url("images/parchment.webp") 0 0 / 512px 512px;
+      box-shadow: inset -3px 0 0 rgba(255, 251, 240, 0.5), 1.5vw 0 4vw rgba(3, 6, 16, 0.7);
+      transform-origin: 0 50%;
+      backface-visibility: hidden;
+      animation: page-turn 1s linear both;
+      animation-timeline: --turn;
+      animation-range: contain 4% contain 97%;
+    }
+    .chapter-page::after {
+      content: "";
+      position: absolute;
+      inset: 0;
+      /* The one gradient on the site: the shade of a page that curves away from the light, darkest at the spine */
+      background: linear-gradient(to right, rgba(24, 16, 9, 0.72), rgba(24, 16, 9, 0.3) 55%, rgba(24, 16, 9, 0.05));
+      opacity: 0;
+      pointer-events: none;
+      animation: page-shade 1s linear both;
+      animation-timeline: --turn;
+      animation-range: contain 4% contain 97%;
+    }
+
+    /* The sky under the page: far stars across the whole screen, and the old moon and stars, which rise as they are uncovered */
+    .turn-sky { display: block; }
+    .turn-sky .stars-far {
+      box-shadow:
+        5cqw 12cqh rgba(241, 234, 220, 0.8), 12cqw 64cqh rgba(241, 234, 220, 0.6), 18cqw 30cqh rgba(125, 195, 224, 0.85),
+        24cqw 84cqh rgba(241, 234, 220, 0.7), 30cqw 16cqh rgba(241, 234, 220, 0.75), 37cqw 52cqh rgba(241, 234, 220, 0.6),
+        43cqw 8cqh rgba(241, 234, 220, 0.7), 49cqw 74cqh rgba(125, 195, 224, 0.8), 55cqw 26cqh rgba(241, 234, 220, 0.8),
+        61cqw 90cqh rgba(241, 234, 220, 0.6), 67cqw 14cqh rgba(241, 234, 220, 0.7), 72cqw 62cqh rgba(241, 234, 220, 0.75),
+        79cqw 22cqh rgba(125, 195, 224, 0.8), 85cqw 40cqh rgba(241, 234, 220, 0.6), 91cqw 10cqh rgba(241, 234, 220, 0.8),
+        96cqw 56cqh rgba(241, 234, 220, 0.7), 3cqw 44cqh rgba(241, 234, 220, 0.55), 58cqw 48cqh rgba(241, 234, 220, 0.55),
+        9cqw 90cqh rgba(241, 234, 220, 0.6), 27cqw 40cqh rgba(241, 234, 220, 0.55), 41cqw 68cqh rgba(241, 234, 220, 0.65),
+        64cqw 36cqh rgba(125, 195, 224, 0.7), 88cqw 26cqh rgba(241, 234, 220, 0.55), 34cqw 94cqh rgba(241, 234, 220, 0.6);
+      animation: sky-far 1s linear both;
+      animation-timeline: --turn;
+      animation-range: contain 4% exit 100%;
+    }
+    .turn-sky .stars-near { animation: sky-near 1s linear both; animation-timeline: --turn; animation-range: contain 4% exit 100%; }
+    .turn-sky .tw:nth-child(1) { left: 14%; top: 22%; width: 4px; height: 4px; }
+    .turn-sky .tw:nth-child(2) { left: 31%; top: 62%; background: #7dc3e0; }
+    .turn-sky .tw:nth-child(3) { left: 47%; top: 34%; width: 4px; height: 4px; }
+    .turn-sky .tw:nth-child(4) { left: 77%; top: 50%; }
+    .turn-sky .tw:nth-child(5) { left: 7%; top: 76%; }
+    .turn-moon {
+      position: absolute;
+      right: var(--edge);
+      bottom: clamp(0.75rem, 3svh, 2rem);
+      width: min(100% - 2 * var(--pad), 36rem);
+      animation: moon-rise 1s linear both;
+      animation-timeline: --turn;
+      animation-range: contain 30% contain 97%;
+    }
+    /* That sky now ends where Chapter II begins, so Chapter II's own copy of it, and its star band, step aside */
+    .worlds > .wrap > .sky,
+    .worlds-stars { display: none; }
+  }
+
+  /* --- "Pause motion": every loop stops where it is. Scroll-linked moves (the page turn) stay in the visitor's hands. --- */
+  .fx-paused .tw,
+  .fx-paused .glint,
+  .fx-paused .blink,
+  .fx-paused .phone-loop.is-live * { animation-play-state: paused; }
 }

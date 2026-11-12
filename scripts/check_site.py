@@ -96,6 +96,54 @@ def check_page(name):
     print(f"PASS: {name} local links, IDs, landmarks, SVGs, metadata and CSP")
 
 
+def enclosing_rules(css, position):
+    """The selectors and at-rule preludes of every block that is open at this position in the CSS."""
+    stack, prelude = [], []
+    for char in css[:position]:
+        if char == "{":
+            stack.append("".join(prelude).strip())
+            prelude = []
+        elif char == "}":
+            stack.pop()
+            prelude = []
+        elif char == ";":
+            prelude = []
+        else:
+            prelude.append(char)
+    return stack
+
+
+def check_motion(css):
+    """Motion rules (John approved motion on 12 Nov 2026; before that any animation failed this check).
+
+    1. Every @keyframes rule and every "infinite" animation sits inside a
+       @media (prefers-reduced-motion: no-preference) block, so reduced motion switches all of it off.
+    2. An animation that loops only runs under .is-live, the class effects.js sets, because effects.js is also
+       what shows the "Pause motion" button: no script, no loop, so a loop can always be paused (WCAG 2.2.2).
+    3. When any loop exists, the home page has that button, loads effects.js, and the CSS has the paused state.
+    """
+    css = re.sub(r"/\*.*?\*/", lambda comment: " " * len(comment.group()), css, flags=re.S)
+    loops = 0
+    for match in re.finditer(r"@keyframes\b|\binfinite\b", css):
+        rules = enclosing_rules(css, match.start())
+        line = css.count("\n", 0, match.start()) + 1
+        assert any(rule.startswith("@media") and re.search(r"prefers-reduced-motion:\s*no-preference", rule)
+                   for rule in rules), f"styles.css line {line}: {match.group()} outside a no-preference block"
+        if match.group() == "infinite":
+            loops += 1
+            assert ".is-live" in rules[-1], f"styles.css line {line}: a looping animation must be under .is-live"
+    if loops:
+        home = Page((ROOT / "index.html").read_text(encoding="utf-8"))
+        assert any(tag == "button" and "motion-toggle" in attrs.get("class", "").split()
+                   for tag, attrs in home.tags), "index.html: looping motion needs the Pause motion button"
+        assert any(tag == "script" and attrs.get("src", "").split("?")[0] == "effects.js"
+                   for tag, attrs in home.tags), "index.html: the Pause motion button needs effects.js"
+        script = (ROOT / "effects.js").read_text(encoding="utf-8")
+        assert ".motion-toggle" in script and "fx-paused" in script and "prefers-reduced-motion" in script
+        assert re.search(r"\.fx-paused[^{}]*\{[^{}]*animation-play-state:\s*paused", css), \
+            "styles.css: no paused state for the looping animations"
+
+
 def main():
     for name in ("index.html", "work.html", "privacy.html", "404.html"):
         check_page(name)
@@ -110,9 +158,9 @@ def main():
     assert "Disallow:" not in robots and f"Sitemap: {HOME}sitemap.xml" in robots
     css = (ROOT / "styles.css").read_text(encoding="utf-8")
     assert not re.search(r"@import\b|url\(\s*['\"]?https?://", css)
-    assert not re.search(r"\binfinite\b|@keyframes\b", css), "Continuous decorative motion returned"
+    check_motion(css)
     ET.parse(ROOT / "favicon.svg")
-    print("PASS: sitemap, robots, favicon and no external CSS or continuous animation")
+    print("PASS: sitemap, robots, favicon, no external CSS, and motion only where the visitor allows it")
 
 
 if __name__ == "__main__":
