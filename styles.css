@@ -794,17 +794,22 @@ a:hover { text-decoration-thickness: 2px; }
 }
 
 @media (max-width: 62rem) {
-  .case { row-gap: 3rem; }
+  /* One column: every pair reads words first, then its picture (John, 12 Nov 2026). The HTML keeps its order;
+     "order" only moves the picture below its heading and text. */
+  .case { row-gap: 1.75rem; }
   .case-media,
   .case:nth-child(even) .case-media,
   .case-body,
   .case:nth-child(even) .case-body { grid-column: 1 / -1; grid-row: auto; }
-  .case-body { max-width: 38rem; }
+  .case-body { order: -1; max-width: 38rem; }
 
   .plate,
   .plate-site,
   .plate-host { grid-column: 1 / -1; }
   .plate-host .frame { margin-top: 0; }
+  .plate { display: flex; flex-direction: column; }
+  .plate h3 { margin-top: 0; }
+  .plate-figure { order: 1; margin-top: 1.1rem; }
 
   .tales { grid-template-columns: 1fr; }
 
