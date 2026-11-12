@@ -543,3 +543,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* Preview fix: keep the Photos screenshot the same height as its neighbours */
 img.crop-top { aspect-ratio: 520 / 880; object-fit: cover; object-position: top; height: auto; }
+@media (max-width: 48rem) {
+  /* Preview fix: keep the phone shot clear of the caption on the work page */
+  .study-media .shot-phone { bottom: 0; }
+  .study-media figcaption { padding-right: 34%; }
+}
