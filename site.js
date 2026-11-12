@@ -1,7 +1,7 @@
 /* TaleTellers: small progressive enhancements. Every page reads and works fully without this file.
    1. Motion: a hero entrance and scroll reveals. The "js" class switches the hidden start states on
       (see the motion block in styles.css), and only when the visitor has not asked for reduced motion.
-   2. Pricing: what the Local business plan adds up to after a number of months, with or without the app. */
+   2. Pricing: what each plan adds up to after a number of months (Local business: with or without the app). */
 (function () {
   'use strict';
   var root = document.documentElement;
@@ -38,34 +38,40 @@
     for (var i = 0; i < items.length; i += 1) observer.observe(items[i]);
   }
 
-  // Local business plan: set-up once, then the monthly fee, plus £5 a month if the app is added.
-  function setUpSum() {
-    var range = document.getElementById('months');
-    var app = document.getElementById('with-app');
-    var total = document.getElementById('sum-total');
-    var label = document.getElementById('sum-months');
-    var live = document.querySelector('.sum-live');
-    var fallback = document.querySelector('.sum-static');
-    if (!range || !app || !total || !label || !live) return;
-    var SETUP_PENCE = 9999;
-    var MONTHLY_PENCE = 999;
-    var APP_PENCE = 500;
+  // Each plan's "What it adds up to": the set-up once, then the monthly fee for the chosen number of months,
+  // plus the app's monthly fee when the plan has an app tick box and it is ticked. Prices come from the
+  // block's data-setup, data-monthly and data-app attributes, in pence.
+  function setUpSum(live) {
+    var range = live.querySelector('input[type="range"]');
+    var app = live.querySelector('input[type="checkbox"]');
+    var total = live.querySelector('.sum-total');
+    var label = live.querySelector('.sum-months');
+    var fallback = live.parentNode.querySelector('.sum-static');
+    if (!range || !total || !label) return;
+    var setupPence = Number(live.getAttribute('data-setup'));
+    var monthlyPence = Number(live.getAttribute('data-monthly'));
+    var appPence = Number(live.getAttribute('data-app') || 0);
     function update() {
       var months = Number(range.value);
-      var pence = SETUP_PENCE + months * (MONTHLY_PENCE + (app.checked ? APP_PENCE : 0));
+      var pence = setupPence + months * (monthlyPence + (app && app.checked ? appPence : 0));
       total.textContent = '£' + (pence / 100).toFixed(2);
       label.textContent = months === 1 ? '1 month' : months + ' months';
       range.setAttribute('aria-valuetext', label.textContent + ', ' + total.textContent + ' in total');
     }
     range.addEventListener('input', update);
-    app.addEventListener('change', update);
+    if (app) app.addEventListener('change', update);
     live.hidden = false;
     if (fallback) fallback.hidden = true;
     update();
   }
 
+  function setUpSums() {
+    var blocks = document.querySelectorAll('.sum-live');
+    for (var i = 0; i < blocks.length; i += 1) setUpSum(blocks[i]);
+  }
+
   function start() {
-    setUpSum();
+    setUpSums();
     if (reduce) return;
     try {
       setUpMotion();

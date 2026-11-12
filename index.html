@@ -9,11 +9,11 @@
   <meta name="description" content="TaleTellers builds websites for Masonic lodges and Provinces, clubs, charities and local businesses, with an installable app, an admin panel and hosting on your own domain. We also make Hytale and Minecraft mods.">
   <link rel="canonical" href="https://taletellers.co.uk/">
   <meta name="theme-color" content="#f1e4c6">
-  <link rel="icon" href="favicon.svg?v=2" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg?v=3" type="image/svg+xml">
   <link rel="preload" href="fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=4">
-  <script src="site.js?v=4"></script>
+  <link rel="stylesheet" href="styles.css?v=5">
+  <script src="site.js?v=5"></script>
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TaleTellers">
@@ -28,9 +28,9 @@
 
   <header class="site-header">
     <div class="wrap">
-      <!-- LOGO: images/logo-mark.svg, the mix of the old mark and draft C (John, 12 Nov 2026) -->
+      <!-- LOGO: images/logo-mark.svg, the symmetrical starry mark (John, 12 Nov 2026) -->
       <a class="brand" href="index.html" aria-label="TaleTellers, home">
-        <img src="images/logo-mark.svg?v=2" width="32" height="32" alt="">
+        <img src="images/logo-mark.svg?v=3" width="32" height="32" alt="">
         <span>TaleTellers</span>
       </a>
       <nav class="site-nav" aria-label="Main">
@@ -41,7 +41,7 @@
           <li><a href="#worlds">Worlds</a></li>
         </ul>
       </nav>
-      <a class="btn btn-small header-cta" href="mailto:john@taletellers.co.uk">Email John</a>
+      <a class="btn btn-small header-cta" href="mailto:john@taletellers.co.uk">Email us</a>
     </div>
   </header>
 
@@ -213,7 +213,7 @@
     <!-- JOHN: before this goes public, confirm the wording on VAT, on cancelling the monthly plan, and on who pays the yearly domain fee. None of that is stated here yet. -->
     <section class="pricing" id="pricing" aria-labelledby="pricing-title">
       <div class="wrap axis">
-        <h2 id="pricing-title" data-reveal>Three ways to pay for it</h2>
+        <h2 id="pricing-title" data-reveal>Our website pricing</h2>
         <div class="axis-body" data-reveal="1">
           <p class="lead">Each one reads the same way down the page: what it costs to set up, what it costs each month, and what that adds up to.</p>
         </div>
@@ -235,14 +235,14 @@
           <div class="tier-row sum">
             <h4>What it adds up to</h4>
             <p class="sum-static">Twelve months comes to <strong>£219.87</strong> without the app, or <strong>£279.87</strong> with it. That is the set-up plus twelve monthly payments.</p>
-            <div class="sum-live" hidden>
-              <p class="sum-line"><label for="months">After <span id="sum-months">12 months</span> you will have paid</label></p>
-              <output id="sum-total" for="months with-app">£219.87</output>
+            <div class="sum-live" data-setup="9999" data-monthly="999" data-app="500" hidden>
+              <p class="sum-line"><label for="months">After <span class="sum-months">12 months</span> you will have paid</label></p>
+              <output class="sum-total" for="months with-app">£219.87</output>
               <input id="months" type="range" min="1" max="36" step="1" value="12">
               <label class="sum-check"><input id="with-app" type="checkbox"> <span>Add the app, +£5 a month</span></label>
             </div>
           </div>
-          <p class="tier-cta"><a class="btn" href="mailto:john@taletellers.co.uk?subject=A%20website%20for%20my%20business">Email John to get started</a></p>
+          <p class="tier-cta"><a class="btn" href="mailto:john@taletellers.co.uk?subject=A%20website%20for%20my%20business">Email us to get started</a></p>
         </article>
 
         <article class="tier tier-org" aria-labelledby="tier-org">
@@ -256,11 +256,16 @@
             <h4>Every month</h4>
             <p class="tier-price">£20 <small>a month</small></p>
           </div>
-          <div class="tier-row">
+          <div class="tier-row sum">
             <h4>What it adds up to</h4>
-            <p>After 12 months you will have paid <strong>£439.99</strong>: the £199.99 set-up and twelve months at £20.</p>
+            <p class="sum-static">After 12 months you will have paid <strong>£439.99</strong>: the £199.99 set-up and twelve months at £20.</p>
+            <div class="sum-live" data-setup="19999" data-monthly="2000" hidden>
+              <p class="sum-line"><label for="months-org">After <span class="sum-months">12 months</span> you will have paid</label></p>
+              <output class="sum-total" for="months-org">£439.99</output>
+              <input id="months-org" type="range" min="1" max="36" step="1" value="12">
+            </div>
           </div>
-          <p class="tier-cta"><a class="btn btn-on-green" href="mailto:john@taletellers.co.uk?subject=A%20website%20for%20our%20organisation">Email John about yours</a></p>
+          <p class="tier-cta"><a class="btn btn-on-green" href="mailto:john@taletellers.co.uk?subject=A%20website%20for%20our%20organisation">Email us about yours</a></p>
         </article>
 
         <article class="tier tier-co" aria-labelledby="tier-co">

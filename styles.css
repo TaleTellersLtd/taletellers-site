@@ -525,8 +525,7 @@ a:hover { text-decoration-thickness: 2px; }
   text-wrap: balance;
 }
 
-.sum-total,
-#sum-total {
+.sum-total {
   display: block;
   font-family: var(--serif);
   font-size: clamp(2.4rem, 3.6vw, 3.25rem);
@@ -539,6 +538,8 @@ a:hover { text-decoration-thickness: 2px; }
 .sum-live input[type="range"] { display: block; width: 100%; max-width: 26rem; height: 2.75rem; margin: 0.25rem 0; accent-color: var(--green-deep); }
 .sum-check { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; font-weight: 500; cursor: pointer; }
 .sum-check input { width: 1.4rem; height: 1.4rem; margin: 0; accent-color: var(--green-deep); }
+.tier-org .sum-total { color: var(--on-green); }
+.tier-org .sum-live input[type="range"] { accent-color: var(--on-green); }
 
 /* ---------- The chapter page between the two chapters ---------- */
 .chapter-page {

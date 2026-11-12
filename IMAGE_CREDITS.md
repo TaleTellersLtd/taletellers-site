@@ -18,8 +18,8 @@ CC0 needs no credit; the footer credits it anyway.
   as shown on their CurseForge pages (All Stone To Tools, All Wools To String, All Slabs To Blocks), downloaded
   12 Nov 2026 from `media.forgecdn.net`, unaltered, 256 x 256. They show Minecraft items (a stone pickaxe, string, a
   cobblestone slab), which are Mojang's artwork: John to confirm he is happy using them on the company site.
-- `images/logo-mark.svg` (header) and `favicon.svg`: the TaleTellers logo, the mix of the old mark and draft C
-  (`brand/logo/rebrand-20261112/logo_mix_20261112.svg`, John 12 Nov 2026). Swap these two files to change it everywhere.
+- `images/logo-mark.svg` (header) and `favicon.svg`: the TaleTellers logo, the symmetrical starry mark
+  (`brand/logo/rebrand-20261112/logo_sym_20261112.svg`, John 12 Nov 2026). Swap these two files to change it everywhere.
 - The moon and stars at the top of Chapter II are the sky pieces of the old live site's hero SVG, reused unchanged
   at John's request. They are static, as on the live site (its twinkle animation was removed in an earlier audit,
   and `scripts/check_site.py` fails any continuous animation).
