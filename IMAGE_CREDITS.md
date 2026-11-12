@@ -14,7 +14,10 @@ CC0 needs no credit; the footer credits it anyway.
   (12 Nov 2026).
 - `images/ab2000-*.webp`: screenshots of TaleTellers' own AB2000 concept demo (see the next section for the
   photographs inside them).
-- `images/admin-*.webp`: screenshots of the TaleTellers admin panel, running on test data ("Admin Test Club").
+- `images/admin-*.webp`: screenshots of the TaleTellers admin panel (12 Nov 2026), run locally with the Provincial
+  Grand Lodge of Linlithgowshire concept demo's sample content and signed in as John Willis (director, named on
+  Companies House). The Photos screen's three thumbnails (the Forth Bridge, Hopetoun House, an old county map) are the
+  Province's own photos from its current website, as used in the PGL demo; none shows a person.
 - `images/hyguns-logo.png`: the HyGuns logo.
 - `images/mod-stone.png`, `images/mod-wool.png`, `images/mod-slabs.png`: the project logos of our own Minecraft mods
   as shown on their CurseForge pages (All Stone To Tools, All Wools To String, All Slabs To Blocks), downloaded
