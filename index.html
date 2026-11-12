@@ -12,7 +12,7 @@
   <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
   <link rel="preload" href="fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=8">
+  <link rel="stylesheet" href="styles.css?v=9">
   <script src="site.js?v=5"></script>
   <script src="effects.js?v=1" defer></script>
 
@@ -116,8 +116,17 @@
           </figure>
           <figure class="screen screen-phone">
             <figcaption>The app</figcaption>
-            <div class="frame frame-phone">
-              <img src="images/lodge272-app.webp" width="520" height="880" alt="A lodge's site on a phone, showing the next meeting date with calendar and map buttons.">
+            <!-- PHONE LOOP, the same one the "app, with notifications" plate plays further down (one set of CSS:
+                 styles.css, "The phone loop"), cut to this frame. Without motion it is one still frame. -->
+            <div class="frame frame-phone phone-loop" data-live>
+              <img class="loop-home" src="images/pgl-phone.webp" width="520" height="1125" alt="A Province’s site on a phone. A reminder arrives for tonight’s meeting; one tap opens the lodge’s next meetings.">
+              <img class="loop-meeting" src="images/pgl-app-meeting.webp" width="375" height="812" fetchpriority="low" decoding="async" alt="">
+              <div class="loop-note" aria-hidden="true">
+                <p class="loop-from"><img src="images/pgl-crest.webp" width="72" height="72" fetchpriority="low" decoding="async" alt=""> <span>Provincial Grand Lodge of Linlithgowshire</span> <span>now</span></p>
+                <p class="loop-title">Tonight, 7.30pm</p>
+                <p class="loop-text">Entered Apprentice degree, St John Crofthead No. 374, Fauldhouse</p>
+              </div>
+              <i class="loop-tap"></i>
             </div>
           </figure>
           <figure class="screen screen-admin">
@@ -127,7 +136,7 @@
             </div>
           </figure>
         </div>
-        <p class="stage-note">Real screens: two of our concept demos, and our admin panel running on test data.</p>
+        <p class="stage-note">Real screens: one of our concept demos, and our admin panel running on test data.</p>
       </div>
     </section>
 
@@ -331,7 +340,8 @@
 
     <!-- ============ CHAPTER II: WORLDS ============ -->
     <!-- THE PAGE TURN: where scroll timelines exist and motion is allowed, this page pins and turns on its spine to
-         show the night sky under it (styles.css, "The page turn"). Everywhere else it is the plain page it always was. -->
+         show the night sky, and the start of Chapter II, under it (styles.css, "The page turn"). .turn-cast is the
+         shadow the page throws on what lies beneath. Everywhere else it is the plain page it always was. -->
     <div class="chapter-turn" id="chapter-two">
       <div class="chapter-stage">
         <div class="stars turn-sky" aria-hidden="true" data-live>
@@ -359,6 +369,7 @@
             </g>
           </svg>
         </div>
+        <i class="turn-cast"></i>
         <div class="chapter-page">
           <div class="wrap" data-reveal>
             <p class="chapter-no">Chapter II</p>

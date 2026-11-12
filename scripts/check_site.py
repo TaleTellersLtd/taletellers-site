@@ -138,6 +138,9 @@ def check_motion(css):
                    for tag, attrs in home.tags), "index.html: looping motion needs the Pause motion button"
         assert any(tag == "script" and attrs.get("src", "").split("?")[0] == "effects.js"
                    for tag, attrs in home.tags), "index.html: the Pause motion button needs effects.js"
+        phones = [attrs for tag, attrs in home.tags if "phone-loop" in attrs.get("class", "").split()]
+        assert phones and all("data-live" in attrs for attrs in phones), \
+            "index.html: every .phone-loop needs data-live, so it only runs on screen and can be paused"
         script = (ROOT / "effects.js").read_text(encoding="utf-8")
         assert ".motion-toggle" in script and "fx-paused" in script and "prefers-reduced-motion" in script
         assert re.search(r"\.fx-paused[^{}]*\{[^{}]*animation-play-state:\s*paused", css), \

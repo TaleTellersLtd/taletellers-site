@@ -14,6 +14,15 @@
 > run on `.is-live` (on screen), and the "Pause motion" button (`.motion-toggle`) stops them. The page turn and the
 > parallax are CSS scroll-driven animations inside `@supports (animation-timeline: view())`; other browsers get the
 > plain page.
+>
+> **Motion tweaks (branch `effects-tweaks-20261112`, 12 Nov 2026, not live).** The page turn's runway is one screen
+> plus `--turn-run` (36lvh; it was 75svh) and the stage's `perspective` is 200vw (it was 320vw). The leaf carries a
+> shade and a sheen (`.chapter-page::after` and `::before`) and throws a shadow on what lies beneath (`.turn-cast`);
+> all three are still gradients that only fade and slide. Chapter II is pulled up under the stage, so its heading is
+> uncovered by the turn, with `--turn-breath` of sky above it. The `page-turn` angles belong to that perspective:
+> they keep the page's edge crossing the screen at an even pace, so work them out again if the perspective changes.
+> The hero's "The app" screen plays the same `.phone-loop` as the "app, with notifications" plate, cut to the hero's
+> frame; the check fails a `.phone-loop` without `data-live`.
 
 Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a small UK games studio.
 
