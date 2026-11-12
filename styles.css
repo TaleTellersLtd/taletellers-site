@@ -271,9 +271,9 @@ a:hover { text-decoration-thickness: 2px; }
    of the lead's lines (2.84em), so the third line starts at the margin and no line is indented under nothing. */
 .dropcap::first-letter {
   float: left;
-  margin: 0.04em 0.06em 0 0;
+  margin: 0.1em 0.06em 0 0;
   font-family: var(--serif);
-  font-size: 3.3em;
+  font-size: 3.15em;
   font-weight: 800;
   line-height: 0.8;
   color: var(--green-text);
@@ -294,6 +294,11 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .frame img { width: 100%; }
 .frame-phone { border-radius: 14px; }
+.bar-short { display: none; }
+@media (max-width: 48rem) {
+  .bar-long { display: none; }
+  .bar-short { display: inline; }
+}
 .frame-bar {
   overflow: hidden;
   padding: 0.35rem 0.8rem;
@@ -488,7 +493,7 @@ a:hover { text-decoration-thickness: 2px; }
   background: var(--blue);
   color: var(--ink-strong);
 }
-.tier-co h3 { font-size: 1.75rem; margin-bottom: 0.35rem; }
+.tier-co h3 { margin-bottom: 0.35rem; }
 .tier-co .tier-cta { padding-top: 0; align-self: center; }
 .tier h3 { font-size: clamp(1.9rem, 3vw, 2.75rem); font-weight: 800; }
 .tier-org h3,
@@ -522,7 +527,7 @@ a:hover { text-decoration-thickness: 2px; }
 .tier-statement {
   margin: 0;
   font-family: var(--serif);
-  font-size: var(--step-h2);
+  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
   font-weight: 800;
   line-height: 1.02;
   letter-spacing: -0.018em;
@@ -1157,11 +1162,13 @@ a:hover { text-decoration-thickness: 2px; }
      0-1s the home screen; 1-1.6s the reminder drops in; it is read until 3.6s; a tap at 3.8s;
      4.1-4.7s the lodge's meetings open; they hold until 9s; then back to the home screen. */
   @keyframes loop-note {
-    0%, 10% { opacity: 0; transform: translateY(-125%); animation-timing-function: var(--ease-out); }
+    0%, 9.9% { opacity: 0; transform: translateY(-150%); }
+    10% { opacity: 1; transform: translateY(-150%); animation-timing-function: var(--ease-out); }
     16%, 37% { opacity: 1; transform: none; animation-timing-function: ease-out; }
     38.5% { opacity: 1; transform: scale(0.97); animation-timing-function: ease-out; }
-    41% { opacity: 1; transform: none; animation-timing-function: var(--ease-out); }
-    45%, 100% { opacity: 0; transform: translateY(-40%); }
+    41% { opacity: 1; transform: none; animation-timing-function: var(--ease-in-out); }
+    45% { opacity: 1; transform: translateY(-150%); }
+    45.1%, 100% { opacity: 0; transform: translateY(-150%); }
   }
   @keyframes loop-tap {
     0%, 36.5% { opacity: 0; transform: scale(0.6); animation-timing-function: var(--ease-out); }
@@ -1169,9 +1176,11 @@ a:hover { text-decoration-thickness: 2px; }
     43%, 100% { opacity: 0; transform: scale(1.35); }
   }
   @keyframes loop-meeting {
-    0%, 41% { opacity: 0; transform: translateY(5%); animation-timing-function: var(--ease-out); }
-    47%, 90% { opacity: 1; transform: none; animation-timing-function: ease; }
-    96%, 100% { opacity: 0; transform: none; }
+    0%, 40.9% { opacity: 0; transform: translateY(101%); }
+    41% { opacity: 1; transform: translateY(101%); animation-timing-function: var(--ease-out); }
+    47%, 90% { opacity: 1; transform: none; animation-timing-function: var(--ease-in-out); }
+    96% { opacity: 1; transform: translateY(101%); }
+    96.1%, 100% { opacity: 0; transform: translateY(101%); }
   }
   .phone-loop.is-live .loop-note { animation: loop-note 10s linear infinite; }
   .phone-loop.is-live .loop-tap { animation: loop-tap 10s linear infinite; }
