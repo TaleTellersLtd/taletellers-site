@@ -2,7 +2,8 @@
    CSS does most of it (styles.css, "Effects"); this file adds what CSS cannot:
    1. "Pause motion": one button for every loop, remembered for the visit (WCAG 2.2.2).
    2. .is-live on a section while it is on screen, so its loops only run when they can be seen.
-   3. The cover's stars lean away from the pointer (or follow an Android phone's tilt; iPhones are never asked).
+   3. The cover's stars and moon lean away from the pointer, or follow an Android phone's tilt; a phone that
+      reports no tilt (iPhones are never asked) gets a slow drift from the CSS instead.
    4. Prices and download figures count up once. The HTML keeps the real numbers and gets them back at the end.
    5. Chapter II's cards tilt towards the pointer, and now and then a shooting star crosses its sky.
    Nothing here runs under prefers-reduced-motion: reduce. One requestAnimationFrame loop, alive only while
@@ -55,37 +56,62 @@
     };
   }
 
-  // 3. The cover's star layers: data-drift is how many pixels a layer may move.
+  // 3. The cover's sky: three layers, and data-drift is how many pixels each moves at full lean (the far stars
+  //    least, the moon most). They lean away from the pointer anywhere over the night header and the cover,
+  //    and ease home when it leaves.
   function setUpDrift(cover) {
     var layers = [];
     each('.cover [data-drift]', function (el) { layers.push([el, Number(el.getAttribute('data-drift'))]); });
-    var aim = follower(160, function (x, y) {
+    var header = doc.querySelector('.site-header');
+    var reach = 1;
+    var aim = follower(240, function (x, y) {
       layers.forEach(function (layer) {
-        layer[0].style.translate = (-x * layer[1]).toFixed(2) + 'px ' + (-y * layer[1] * 0.6).toFixed(2) + 'px';
+        var far = layer[1] * reach;
+        layer[0].style.translate = (-x * far).toFixed(2) + 'px ' + (-y * far * 0.6).toFixed(2) + 'px';
       });
     });
-    settle.push(function () { aim(0, 0); });
-    cover.addEventListener('pointermove', function (event) {
-      if (!on || event.pointerType !== 'mouse') return;
-      var box = cover.getBoundingClientRect();
-      aim(clamp((event.clientX - box.left) / box.width * 2 - 1), clamp((event.clientY - box.top) / box.height * 2 - 1));
-    });
-    cover.addEventListener('pointerleave', function () { aim(0, 0); });
+    function home() { aim(0, 0); }
+    settle.push(home);
 
-    // Phones: Android reports tilt without asking. iOS needs a permission prompt, so it is left alone there
-    // and gets the small scroll-linked drift from the CSS instead.
-    var Tilt = window.DeviceOrientationEvent;
-    if (Tilt && typeof Tilt.requestPermission !== 'function' && !fine.matches) {
-      var zero = null, sent = [0, 0];
-      window.addEventListener('deviceorientation', function (event) {
-        if (!on || event.gamma === null || !cover.classList.contains('is-live')) return;
-        if (!zero) zero = [event.gamma, event.beta];
-        var nx = clamp((event.gamma - zero[0]) / 18), ny = clamp((event.beta - zero[1]) / 18);
-        if (Math.abs(nx - sent[0]) + Math.abs(ny - sent[1]) < 0.04) return;   // ignore sensor noise
-        sent = [nx, ny];
-        aim(nx, ny);
-      });
-    }
+    var over = false;
+    window.addEventListener('pointermove', function (event) {
+      if (event.pointerType !== 'mouse') return;
+      var inside = false;
+      if (on && cover.classList.contains('is-live')) {
+        var box = cover.getBoundingClientRect();
+        var top = box.top - (header ? header.offsetHeight : 0);
+        inside = event.clientY <= box.bottom && event.clientY >= top;
+        if (inside) {
+          reach = 1;
+          aim(clamp(event.clientX / root.clientWidth * 2 - 1), clamp((event.clientY - top) / (box.bottom - top) * 2 - 1));
+        }
+      }
+      if (over && !inside) home();
+      over = inside;
+    }, { passive: true });
+    root.addEventListener('pointerleave', function () { over = false; home(); });
+
+    // Phones. Android Chrome reports tilt without asking (on https pages only): about 9 degrees either way is the
+    // full lean, and the rest position follows the hand over a few seconds, so however the phone is held the sky
+    // answers a movement and then settles. Where no tilt arrives (iPhones, which only report it after a permission
+    // prompt, and are never asked; http pages; phones without the sensor) the CSS drifts the layers slowly instead:
+    // .fx-ambient. Do NOT test for DeviceOrientationEvent.requestPermission to tell an iPhone: Chrome has it too.
+    if (fine.matches) return;
+    var tilting = false, zero = null, sent = [0, 0];
+    window.addEventListener('deviceorientation', function (event) {
+      if (event.gamma === null || event.beta === null) return;
+      if (!tilting) { tilting = true; root.classList.remove('fx-ambient'); }
+      if (!on || !cover.classList.contains('is-live')) { zero = null; return; }
+      if (!zero) zero = [event.gamma, event.beta];
+      zero[0] += (event.gamma - zero[0]) * 0.004;
+      zero[1] += (event.beta - zero[1]) * 0.004;
+      var nx = clamp((event.gamma - zero[0]) / 9), ny = clamp((event.beta - zero[1]) / 9);
+      if (Math.abs(nx - sent[0]) + Math.abs(ny - sent[1]) < 0.015) return;   // sensor noise
+      sent = [nx, ny];
+      reach = 0.7;   // a phone's sky is narrow: the moon stays on the screen
+      aim(nx, ny);
+    });
+    setTimeout(function () { if (!tilting) root.classList.add('fx-ambient'); }, 900);
   }
 
   // 4. Count a figure up to the number in the HTML. It starts from 10, 100... (the same number of digits),

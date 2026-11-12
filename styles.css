@@ -1130,6 +1130,26 @@ a:hover { text-decoration-thickness: 2px; }
   .motion-toggle:active { transform: scale(0.97); }
 
   /* --- Chapter I: the phone loop, 10 seconds ---
+  /* The sky's three layers (data-drift). effects.js leans them with the pointer, or with a phone's tilt, by writing
+     "translate". A phone that reports no tilt gets .fx-ambient instead: the layers drift by themselves, the far
+     stars least and the moon most, there and back in 28 seconds. */
+  .cover.is-live [data-drift] { will-change: translate; }
+  @keyframes drift-far {
+    from { translate: -5px -2px; }
+    to { translate: 5px 2px; }
+  }
+  @keyframes drift-near {
+    from { translate: -10px -4px; }
+    to { translate: 10px 4px; }
+  }
+  @keyframes drift-moon {
+    from { translate: -16px -6px; }
+    to { translate: 16px 6px; }
+  }
+  .fx-ambient .cover.is-live .stars-far { animation: drift-far 14s ease-in-out infinite alternate; }
+  .fx-ambient .cover.is-live .stars-near { animation: drift-near 14s ease-in-out infinite alternate; }
+  .fx-ambient .cover.is-live .cover-sky { animation: drift-moon 14s ease-in-out infinite alternate; }
+
      0-1s the home screen; 1-1.6s the reminder drops in; it is read until 3.6s; a tap at 3.8s;
      4.1-4.7s the lodge's meetings open; they hold until 9s; then back to the home screen. */
   @keyframes loop-note {
@@ -1356,3 +1376,4 @@ a:hover { text-decoration-thickness: 2px; }
   .fx-paused .blink,
   .fx-paused .phone-loop.is-live * { animation-play-state: paused; }
 }
+  .fx-paused .cover.is-live [data-drift],

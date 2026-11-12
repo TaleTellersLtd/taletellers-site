@@ -14,7 +14,7 @@
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="stylesheet" href="styles.css?v=12">
   <script src="site.js?v=6"></script>
-  <script src="effects.js?v=1" defer></script>
+  <script src="effects.js?v=2" defer></script>
 
   <meta property="og:type" content="website">
   <meta property="og:site_name" content="TaleTellers">
@@ -49,14 +49,14 @@
   <main id="main">
     <!-- ============ THE COVER: who we are ============ -->
     <section class="cover" aria-labelledby="site-title" data-live>
-      <!-- EFFECTS (motion preview, 12 Nov 2026): far stars that lean with the pointer, a few that twinkle. Decoration only. -->
+      <!-- EFFECTS: three sky layers (data-drift = pixels at full lean) that follow the pointer or a phone's tilt, and a few stars that twinkle. Decoration only. -->
       <div class="stars" aria-hidden="true">
-        <i class="stars-far" data-drift="5"></i>
-        <span class="stars-near" data-drift="10"><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i></span>
+        <i class="stars-far" data-drift="12"></i>
+        <span class="stars-near" data-drift="24"><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i><i class="tw"></i></span>
       </div>
       <div class="wrap cover-inner">
         <!-- OLD SITE SKY: moon and stars reused from the live site at John's request -->
-        <svg class="cover-sky" data-drift="16" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
+        <svg class="cover-sky" data-drift="40" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
           <defs>
             <mask id="m-moon-cover">
               <circle cx="478" cy="78" r="30" fill="#fff"/>
