@@ -1070,8 +1070,9 @@ a:hover { text-decoration-thickness: 2px; }
     radial-gradient(ellipse 72% 19% at 50% 71%, rgba(255, 220, 180, 0.28), rgba(255, 220, 180, 0)),
     linear-gradient(to bottom,
       var(--night) 0%, var(--night) 4%, #131d39 13%, #1c2545 23%, #2c2d53 32%, #463a60 41%, #6b4d6b 50%,
-      #96656f 58.5%, #bd8272 66.5%, #dba381 74%, #ecc59c 81%, rgba(239, 208, 168, 0.62) 88%,
-      rgba(241, 220, 185, 0.28) 94%, rgba(241, 228, 198, 0) 100%);
+      #96656f 58.5%, #bd8272 66.5%, rgb(203, 145, 121) 70%, rgba(219, 163, 129, 0.95) 74%,
+      rgba(236, 197, 156, 0.7) 81%, rgba(238, 207, 168, 0.45) 86%, rgba(239, 215, 180, 0.26) 90%,
+      rgba(240, 222, 190, 0.1) 94%, rgba(241, 226, 196, 0.03) 97%, rgba(241, 228, 198, 0) 100%);
 }
 .dawn + .contact { padding-top: clamp(1.75rem, 3.5vw, 3rem); }
 /* On paper and in forced colours the gradient is not drawn: no empty band is left in its place */
