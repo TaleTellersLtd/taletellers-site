@@ -504,7 +504,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .tier-local .tier-price { color: var(--ink-strong); }
 .tier-price small { font-family: var(--sans); font-size: 1.125rem; font-weight: 500; letter-spacing: 0; }
-.tier-addon { margin: 0.6rem 0 0; padding: 0.6rem 0.9rem; background: var(--page-light); border-left: 4px solid var(--blue); }
+.tier-addon { margin: 0.6rem 0 0; padding: 0.7rem 1rem; background: var(--page-light); }
 .tier-tbc {
   display: inline-block;
   margin: 0.35rem 0 0;
