@@ -339,9 +339,12 @@
     </section>
 
     <!-- ============ CHAPTER II: WORLDS ============ -->
-    <!-- THE PAGE TURN: where scroll timelines exist and motion is allowed, this page pins and turns on its spine to
-         show the night sky, and the start of Chapter II, under it (styles.css, "The page turn"). .turn-cast is the
-         shadow the page throws on what lies beneath. Everywhere else it is the plain page it always was. -->
+    <!-- THE PAGE TURN: where scroll timelines exist and motion is allowed, this page pins and is turned like a leaf of
+         a book: its bottom outer corner lifts, the fold travels across, and the night sky and the start of Chapter II
+         lie under it (styles.css, "The page turn"; docs/PAGE_TURN_REFERENCES.md). .turn-clip hides the lifted part of
+         the page, .turn-flat holds the page still inside it, .turn-flap is the back of the page folded over, and
+         .turn-cast is the shadow on what lies beneath. Everywhere else it is the plain page it always was.
+         .turn-flap is a span on purpose: as an <i> it made the browser fetch the italic font at load. -->
     <div class="chapter-turn" id="chapter-two">
       <div class="chapter-stage">
         <div class="stars turn-sky" aria-hidden="true" data-live>
@@ -370,11 +373,16 @@
           </svg>
         </div>
         <i class="turn-cast"></i>
-        <div class="chapter-page">
-          <div class="wrap" data-reveal>
-            <p class="chapter-no">Chapter II</p>
-            <p class="chapter-name">Worlds</p>
-            <p class="epigraph">In which the people who build lodge websites turn out to make mods for Hytale and Minecraft as well.</p>
+        <div class="turn-clip">
+          <div class="turn-flat">
+            <div class="chapter-page">
+              <div class="wrap" data-reveal>
+                <p class="chapter-no">Chapter II</p>
+                <p class="chapter-name">Worlds</p>
+                <p class="epigraph">In which the people who build lodge websites turn out to make mods for Hytale and Minecraft as well.</p>
+              </div>
+            </div>
+            <span class="turn-flap"></span>
           </div>
         </div>
       </div>

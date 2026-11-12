@@ -29,6 +29,22 @@
 > plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations are
 > both £250 set-up + £20 a month with the app included (12 months = £490); Companies by quote. The sliders read
 > `data-setup` and `data-monthly` (pence) and there is no app tick box any more.
+>
+> **Book round (branch `pricing-app-optional-20261112`, 12 Nov 2026, not live).** This replaces what the two motion
+> notes above say about the page turn and the cover's stars.
+> 1. In one column (up to 62rem wide) every picture sits below its heading and text; the HTML order is unchanged
+>    (`order` in `styles.css`).
+> 2. The page turn is a real leaf: the bottom outer corner lifts, the fold travels across and the back of the paper
+>    shows. It is still CSS only, on the scroll timeline, inside `@supports (animation-timeline: view())`:
+>    `.turn-clip` (a rotated clip whose edge is the fold), `.turn-flat` (the opposite move, so the page stays put),
+>    `.turn-flap` (the page mirrored in the fold) and `.turn-cast` (the shadow beneath). The three `turn-*`
+>    keyframe sets must keep identical stops. How and why: `docs/PAGE_TURN_REFERENCES.md`. The runway
+>    (`--turn-run`) is now 50lvh.
+> 3. Chapter II's lead has no drop cap. Chapter I's is exactly two lines deep.
+> 4. The cover's sky has three layers that move 12, 24 and 40 px (`data-drift`): with the mouse anywhere over the
+>    night header and the cover, or with an Android phone's tilt (about 9 degrees is the full lean; https only). A
+>    phone that reports no tilt gets `.fx-ambient`, a slow CSS drift. "Pause motion" stops all three. Never use
+>    `DeviceOrientationEvent.requestPermission` to detect an iPhone: Chrome has that function too.
 
 Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a Scottish creative studio that builds
 websites and apps and makes video game mods.

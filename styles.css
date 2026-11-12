@@ -807,10 +807,10 @@ a:hover { text-decoration-thickness: 2px; }
   .plate,
   .plate-site,
   .plate-host { grid-column: 1 / -1; }
-  .plate-host .frame { margin-top: 0; }
   .plate { display: flex; flex-direction: column; }
   .plate h3 { margin-top: 0; }
   .plate-figure { order: 1; margin-top: 1.1rem; }
+  .plate-host .frame { margin-top: 0; }
 
   .tales { grid-template-columns: 1fr; }
 
@@ -1014,9 +1014,13 @@ a:hover { text-decoration-thickness: 2px; }
   pointer-events: none;
 }
 
-/* The page turn, as a still: the sky under the page and the shadow on it do not exist; the chapter page is the plain page it was. */
+/* The page turn, as a still: the sky under the page, the shadow on it and the folded-over back of the page do not
+   exist, and the two boxes around the chapter page are not boxes at all; the chapter page is the plain page it was. */
 .turn-sky,
-.turn-cast { display: none; }
+.turn-cast,
+.turn-flap { display: none; }
+.turn-clip,
+.turn-flat { display: contents; }
 
 /* Chapter II: a band of far stars behind the old sky at the head of the section */
 .worlds { position: relative; }
@@ -1126,10 +1130,6 @@ a:hover { text-decoration-thickness: 2px; }
     .cover .stars { animation: sky-lag 1s linear both; animation-timeline: view(); animation-range: exit 0% exit 100%; }
   }
 
-  .motion-toggle { transition: color 160ms ease, transform 140ms var(--ease-out); }
-  .motion-toggle:active { transform: scale(0.97); }
-
-  /* --- Chapter I: the phone loop, 10 seconds ---
   /* The sky's three layers (data-drift). effects.js leans them with the pointer, or with a phone's tilt, by writing
      "translate". A phone that reports no tilt gets .fx-ambient instead: the layers drift by themselves, the far
      stars least and the moon most, there and back in 28 seconds. */
@@ -1150,6 +1150,10 @@ a:hover { text-decoration-thickness: 2px; }
   .fx-ambient .cover.is-live .stars-near { animation: drift-near 14s ease-in-out infinite alternate; }
   .fx-ambient .cover.is-live .cover-sky { animation: drift-moon 14s ease-in-out infinite alternate; }
 
+  .motion-toggle { transition: color 160ms ease, transform 140ms var(--ease-out); }
+  .motion-toggle:active { transform: scale(0.97); }
+
+  /* --- Chapter I: the phone loop, 10 seconds ---
      0-1s the home screen; 1-1.6s the reminder drops in; it is read until 3.6s; a tap at 3.8s;
      4.1-4.7s the lodge's meetings open; they hold until 9s; then back to the home screen. */
   @keyframes loop-note {
@@ -1210,48 +1214,54 @@ a:hover { text-decoration-thickness: 2px; }
 
   /* --- The page turn ---
      .chapter-turn is a runway: one screen (the page) plus --turn-run of scroll. The stage sticks to the top of the
-     screen for that scroll, and the leaf turns on its left edge from flat to edge-on. What it uncovers is the next
-     page of the book: a band of night sky with the moon (--turn-breath tall), and under that the start of
-     Chapter II, which is pulled up beneath the stage, so its heading is there as soon as the page has gone.
-     Nothing is hidden if the animation never runs: the leaf then simply scrolls away like any other block.
-     Only transform and opacity move. The paper's shading is three still gradients that fade and slide:
-     a shade and a sheen on the leaf, and the shadow the leaf throws on what lies beneath. */
-  /* The angles are not evenly spaced on purpose: the page lifts first (its edge is still off the right of the
-     screen until 53 degrees), then these steps bring that edge across the screen at an even pace as you scroll.
-     They belong to perspective: 200vw; work them out again if that changes. */
-  @keyframes page-turn {
-    0% { transform: rotateY(0deg); }
-    7% { transform: rotateY(-26.6deg); }
-    14% { transform: rotateY(-53.1deg); }
-    23.2% { transform: rotateY(-59.6deg); }
-    32.4% { transform: rotateY(-64.8deg); }
-    41.7% { transform: rotateY(-69.2deg); }
-    50.9% { transform: rotateY(-73.2deg); }
-    60.1% { transform: rotateY(-76.8deg); }
-    69.3% { transform: rotateY(-80.3deg); }
-    78.6% { transform: rotateY(-83.6deg); }
-    87.8% { transform: rotateY(-86.8deg); }
-    97%, 100% { transform: rotateY(-90deg); }
+     screen for that scroll, and the page is turned like a leaf of a book, by a fold that crosses it:
+       - The fold is a straight line through a point on the page's bottom edge, leaning to the right. It starts at
+         the bottom outer corner (so the corner lifts first), travels across diagonally, stands up as it goes, and
+         ends upright on the spine, the left edge of the screen.
+       - .turn-clip is a big box whose right edge IS the fold: it hides the part of the page that has lifted.
+         .turn-flat undoes the box's move, so the page inside it stays exactly where it was.
+       - .turn-flap is a second sheet, the page mirrored in the fold: the back of the paper, curling over. Its
+         ::before is the shading of the curl, and its box-shadow falls on the page it lies on.
+       - .turn-cast is the shadow on what lies beneath, along the fold.
+     All of them ride the same line, so they share these keyframes: "translateX(x) rotate(a)" is the fold through
+     the point x on the bottom edge, leaning a degrees (x in cqw: hundredths of the stage's width). Keep the stops
+     the same in all three sets, or the page swims inside its clip.
+     What the turn uncovers is the next page of the book: a band of night sky with the moon (--turn-breath tall),
+     and under that the start of Chapter II, which is pulled up beneath the stage.
+     Only transform and opacity move, on the scroll timeline (no script), so the turn keeps up with a thumb.
+     Nothing is hidden if the animation never runs: the page then simply scrolls away like any other block.
+     The technique is the rotated clip of turn.js; the path is our own. See docs/PAGE_TURN_REFERENCES.md. */
+  /* 0% is the page at rest, with nothing turned at all, so it is drawn as sharp as any other page; the fold then
+     takes its starting lean in a hair's breadth of scroll, while it still only touches the corner. */
+  @keyframes turn-fold {
+    0% { transform: translateX(100cqw) rotate(0deg); }
+    0.01% { transform: translateX(100cqw) rotate(44deg); }
+    30% { transform: translateX(70cqw) rotate(27deg); }
+    60% { transform: translateX(38cqw) rotate(11deg); }
+    100% { transform: translateX(0cqw) rotate(0deg); }
   }
-  /* The shade: a page that curves away from the light, darkest in the gutter. It deepens as the page stands up. */
-  @keyframes page-shade {
-    0% { opacity: 0; }
-    14% { opacity: 0.45; }
-    97%, 100% { opacity: 1; }
+  @keyframes turn-flat {
+    0% { transform: rotate(0deg) translateX(-100cqw); }
+    0.01% { transform: rotate(-44deg) translateX(-100cqw); }
+    30% { transform: rotate(-27deg) translateX(-70cqw); }
+    60% { transform: rotate(-11deg) translateX(-38cqw); }
+    100% { transform: rotate(0deg) translateX(0cqw); }
   }
-  /* The sheen: a band of light on the paper where it lifts. It slides towards the spine and goes as the page stands on edge. */
-  @keyframes page-sheen {
-    0% { opacity: 0; transform: translateX(8%); }
-    14% { opacity: 1; transform: translateX(4%); }
-    76% { opacity: 1; }
-    97%, 100% { opacity: 0; transform: translateX(-30%); }
+  /* The mirror, read from the right: bring the fold to the spine and stand it up, flip, put it back. The flip is
+     less than a full -1 because the lifted paper is in the air, not pressed flat: seen from above it is foreshortened,
+     most of all while only the corner has curled. */
+  @keyframes turn-flap {
+    0% { transform: translateX(100cqw) rotate(0deg) scaleX(-0.58) rotate(0deg) translateX(-100cqw); }
+    0.01% { transform: translateX(100cqw) rotate(44deg) scaleX(-0.58) rotate(-44deg) translateX(-100cqw); }
+    30% { transform: translateX(70cqw) rotate(27deg) scaleX(-0.7) rotate(-27deg) translateX(-70cqw); }
+    60% { transform: translateX(38cqw) rotate(11deg) scaleX(-0.82) rotate(-11deg) translateX(-38cqw); }
+    100% { transform: translateX(0cqw) rotate(0deg) scaleX(-0.9) rotate(0deg) translateX(0cqw); }
   }
-  /* The cast shadow: it lies on the sky and on Chapter II just ahead of the page's free edge, moves with that edge
-     (14% to 97%, the same even pace), and narrows and fades as the page stands up. */
+  /* The shadow beneath comes in as the corner lifts and goes as the page lands on the spine */
   @keyframes turn-cast {
-    0%, 14% { opacity: 1; transform: translateX(98.6%) scaleX(1); }
-    72% { opacity: 1; }
-    97%, 100% { opacity: 0; transform: translateX(-1.4%) scaleX(0.45); }
+    0% { opacity: 0; }
+    6%, 82% { opacity: 1; }
+    100% { opacity: 0; }
   }
   @keyframes moon-rise {
     from { opacity: 0; translate: 0 3.5rem; }
@@ -1273,60 +1283,62 @@ a:hover { text-decoration-thickness: 2px; }
     /* --turn-run: how much scroll the turn takes. --turn-breath: how much sky shows above Chapter II.
        Large-viewport units, so on a phone the page still covers the screen when the browser's bars slide away. */
     .chapter-turn,
-    .worlds { --turn-run: max(36lvh, 16rem); --turn-breath: max(34lvh, 11rem); }
+    .worlds { --turn-run: max(50lvh, 20rem); --turn-breath: max(34lvh, 11rem); }
     .chapter-turn { view-timeline: --turn block; background: var(--night); }
     .chapter-turn::after { content: ""; display: block; height: var(--turn-run); }
-    /* The eye is level with the spine (perspective-origin), so the spine stays put and the page's edge comes all the
-       way home; it is two page-widths away, about where a reader holds a book. The stage is see-through and lets
-       clicks through: Chapter II lies under it. */
-    .chapter-stage { position: sticky; top: 0; z-index: 1; overflow: clip; perspective: 200vw; perspective-origin: 0 50%; pointer-events: none; }
-    .chapter-turn .chapter-page {
-      position: relative;
-      isolation: isolate;
-      display: grid;
-      align-content: center;
-      min-height: 100lvh;
-      background: var(--page) url("images/parchment.webp") 0 0 / 512px 512px;
-      box-shadow: inset -3px 0 0 rgba(255, 251, 240, 0.55);
-      transform-origin: 0 50%;
-      backface-visibility: hidden;
-      pointer-events: auto;
-      animation: page-turn 1s linear both;
-      animation-timeline: --turn;
-      animation-range: contain 0% contain var(--turn-run);
-    }
-    .chapter-turn .chapter-page::before,
-    .chapter-turn .chapter-page::after {
-      content: "";
-      position: absolute;
-      inset: 0;
-      opacity: 0;
-      pointer-events: none;
-    }
-    /* The sheen sits on the paper, under the words (z-index), so the ink stays sharp */
-    .chapter-turn .chapter-page::before {
-      z-index: -1;
-      background: linear-gradient(to right, rgba(255, 252, 240, 0) 34%, rgba(255, 252, 240, 0.6) 62%, rgba(255, 252, 240, 0.18) 80%, rgba(255, 252, 240, 0) 92%);
-      animation: page-sheen 1s linear both;
-      animation-timeline: --turn;
-      animation-range: contain 0% contain var(--turn-run);
-    }
-    .chapter-turn .chapter-page::after {
-      background: linear-gradient(to right, rgba(24, 16, 9, 0.8), rgba(24, 16, 9, 0.42) 20%, rgba(24, 16, 9, 0.15) 48%, rgba(24, 16, 9, 0.09) 64%, rgba(24, 16, 9, 0.15) 82%, rgba(24, 16, 9, 0.3));
-      animation: page-shade 1s linear both;
-      animation-timeline: --turn;
-      animation-range: contain 0% contain var(--turn-run);
-    }
-    /* As wide as the stage, so its own width is the screen's: translateX(50%) puts the shadow's dark end at mid-screen */
+    /* The stage is one screen. It is see-through and lets clicks through: Chapter II lies under it. It is a size
+       container, so the keyframes' cqw are its own width (100vw would count a desktop scrollbar too). */
+    .chapter-stage { position: sticky; top: 0; z-index: 1; height: 100lvh; overflow: clip; container-type: size; pointer-events: none; }
+    .turn-clip,
+    .turn-flat,
+    .turn-flap,
+    .turn-flap::before,
     .turn-cast {
       display: block;
       position: absolute;
-      inset: 0;
-      background: linear-gradient(to right, rgba(2, 5, 14, 0.82), rgba(2, 5, 14, 0.5) 3%, rgba(2, 5, 14, 0.24) 8%, rgba(2, 5, 14, 0.08) 13%, rgba(2, 5, 14, 0) 18%);
-      transform-origin: 0 50%;
-      animation: turn-cast 1s linear both;
+      animation: turn-fold 1s linear both;
       animation-timeline: --turn;
       animation-range: contain 0% contain var(--turn-run);
+    }
+    /* Every origin below is the same point: the stage's bottom left corner, the foot of the spine */
+    /* The clip's own paper colour lies under the page: the browser leaves the outermost row of pixels of a page drawn
+       through a turned clip a little see-through, and this keeps the night from showing there. */
+    .turn-clip { top: -100vmax; right: 100%; bottom: -100vmax; width: 200vmax; overflow: clip; background: #ece3c3; transform-origin: 100% calc(100% - 100vmax); }
+    .turn-flat { top: 100vmax; bottom: 100vmax; left: 100%; width: 100cqw; transform-origin: 0 100%; animation-name: turn-flat; }
+    /* The page runs 2px past the stage on every side: its soft outer edge, a by-product of the turning clip, is cut off */
+    .chapter-turn .chapter-page {
+      position: absolute;
+      inset: -2px;
+      display: grid;
+      align-content: center;
+      padding-block: 1rem;
+      background: var(--page) url("images/parchment.webp") 0 0 / 512px 512px;
+      pointer-events: auto;
+    }
+    /* The back of the page: the same paper, a little darker */
+    .turn-flap {
+      inset: 0;
+      overflow: clip;
+      background: #ede6da url("images/parchment.webp") 0 0 / 512px 512px;
+      background-blend-mode: multiply;
+      box-shadow: 0 0 3vmax rgba(36, 24, 12, 0.45);
+      transform-origin: 0 100%;
+      animation-name: turn-flap;
+    }
+    /* The curl: a strip that lies along the fold. Dark where the paper stands on edge, then the light it catches
+       as it rolls over, then nothing. (Before the mirror it is on the lifted side; the flap's mirror puts it on the
+       flap.) The strip beneath it on the sky is the same shape, as shadow. */
+    .turn-flap::before,
+    .turn-cast { left: 0; bottom: -12vmax; height: 157vmax; transform-origin: 0 calc(100% - 12vmax); }
+    .turn-flap::before {
+      content: "";
+      width: 10vmax;
+      background: linear-gradient(to right, rgba(36, 24, 12, 0.46), rgba(36, 24, 12, 0.2) 6%, rgba(255, 250, 236, 0.55) 26%, rgba(255, 250, 236, 0.14) 58%, rgba(255, 250, 236, 0));
+    }
+    .turn-cast {
+      width: 14vmax;
+      background: linear-gradient(to right, rgba(2, 5, 14, 0.85), rgba(2, 5, 14, 0.5) 18%, rgba(2, 5, 14, 0.18) 52%, rgba(2, 5, 14, 0));
+      animation-name: turn-fold, turn-cast;
     }
 
     /* The sky under the page: a band of far stars, and the old moon and stars, which rise as they are uncovered */
@@ -1372,8 +1384,8 @@ a:hover { text-decoration-thickness: 2px; }
 
   /* --- "Pause motion": every loop stops where it is. Scroll-linked moves (the page turn) stay in the visitor's hands. --- */
   .fx-paused .tw,
+  .fx-paused .cover.is-live [data-drift],
   .fx-paused .glint,
   .fx-paused .blink,
   .fx-paused .phone-loop.is-live * { animation-play-state: paused; }
 }
-  .fx-paused .cover.is-live [data-drift],
