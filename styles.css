@@ -842,7 +842,6 @@ a:hover { text-decoration-thickness: 2px; }
   /* Phone stage: the website across the top, the app and the admin panel side by side beneath it */
   .stage { grid-template-columns: 1fr 1fr; height: auto; max-height: 32rem; }
   .screen-desk { grid-column: 1 / -1; }
-  .screen-desk .frame img { aspect-ratio: 16 / 11; object-fit: cover; object-position: top; }
   .screen-phone,
   .screen-admin { padding-top: 0.5rem; }
   .screen figcaption { font-size: 1.0625rem; padding-bottom: 0.4rem; }
