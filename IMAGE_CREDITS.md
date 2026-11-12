@@ -1,4 +1,4 @@
-# Image credits (redesign preview D, "One book, two chapters")
+# Image credits
 
 ## Paper texture (licensed, credited in the footer of every page)
 
@@ -10,8 +10,8 @@ CC0 needs no credit; the footer credits it anyway.
 
 ## Our own screenshots and artwork
 
-- `images/pgl-*.webp`, `images/lodge272-*.webp`, `images/wanderson-*.webp`: screenshots of TaleTellers' own concept
-  demos (12 Nov 2026). The William Anderson & Sons demo needs the company's OK before the site goes public.
+- `images/pgl-*.webp`, `images/lodge272-*.webp`: screenshots of TaleTellers' own concept
+  demos (12 Nov 2026).
 - `images/admin-*.webp`: screenshots of the TaleTellers admin panel, running on test data ("Admin Test Club").
 - `images/hyguns-logo.png`: the HyGuns logo.
 - `images/mod-stone.png`, `images/mod-wool.png`, `images/mod-slabs.png`: the project logos of our own Minecraft mods

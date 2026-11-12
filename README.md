@@ -1,10 +1,10 @@
 # taletellers-site
 
-> **Redesign preview D, "One book, two chapters" (branch `preview-d-20261112`, 12 Nov 2026).** Local preview only,
-> not the live site. Pages: `index.html` (Chapter I Websites, Chapter II Worlds), `work.html` (case studies),
-> `privacy.html`. `site.js` adds the reveals and the pricing months slider; the pages work without it. Fonts are
-> self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo placeholders: `images/logo-mark.svg` and `favicon.svg`.
-> Credits: `IMAGE_CREDITS.md`. Screenshots: `preview-shots/`. The rest of this file describes the old live site.
+> **Live site since 12 Nov 2026: "One book, two chapters".** Pages: `index.html` (Chapter I Websites, Chapter II
+> Worlds), `work.html` (case studies), `privacy.html`, `404.html`. `site.js` adds the reveals and the pricing months
+> slider; the pages work without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo: swap
+> `images/logo-mark.svg` (header) and `favicon.svg`. Credits: `IMAGE_CREDITS.md`. Older notes below describe the
+> previous site.
 
 Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a small UK games studio.
 
