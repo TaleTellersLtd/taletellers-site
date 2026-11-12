@@ -589,7 +589,8 @@ a:hover { text-decoration-thickness: 2px; }
 
 /* ---------- Chapter II: Worlds, at night ---------- */
 .worlds {
-  padding-block: clamp(1.5rem, 3vw, 2.5rem) var(--section);
+  /* A short foot: the dawn band that follows opens in this same night (see "Dawn") */
+  padding-block: clamp(1.5rem, 3vw, 2.5rem) clamp(2rem, 4vw, 3rem);
   background: var(--night);
   color: var(--on-night);
 }
@@ -1052,6 +1053,63 @@ a:hover { text-decoration-thickness: 2px; }
   opacity: 0;
 }
 
+/* Dawn (John, 12 Nov 2026): the night of Chapter II fades into the day of the last page, so the book turns into
+   night and back into day with no hard line. A band between .worlds and .contact; decoration only (aria-hidden).
+   - The gradient opens in the night's own colour and ends see-through over the page's own paper, so neither edge
+     can show. The last line above it stands on plain night and the first heading below it on plain paper.
+   - Between the two: blue hour, a dusk violet, a muted rose and a peach glow low on the horizon (the second
+     gradient is that glow, a little stronger in the middle; it has faded out before the band's foot).
+   - The stars are the site's usual ones (.stars-far pixels and .tw). They thin out and dim as the sky brightens,
+     and there are none in the lower half of the band.
+   - svh, not dvh: the band never changes height when a phone's bars slide away, so nothing shifts. */
+.dawn {
+  position: relative;
+  height: clamp(17rem, 46vh, 27rem);
+  height: clamp(17rem, 46svh, 27rem);
+  background:
+    radial-gradient(ellipse 72% 19% at 50% 71%, rgba(255, 220, 180, 0.28), rgba(255, 220, 180, 0)),
+    linear-gradient(to bottom,
+      var(--night) 0%, var(--night) 4%, #131d39 13%, #1c2545 23%, #2c2d53 32%, #463a60 41%, #6b4d6b 50%,
+      #96656f 58.5%, #bd8272 66.5%, #dba381 74%, #ecc59c 81%, rgba(239, 208, 168, 0.62) 88%,
+      rgba(241, 220, 185, 0.28) 94%, rgba(241, 228, 198, 0) 100%);
+}
+.dawn + .contact { padding-top: clamp(1.75rem, 3.5vw, 3rem); }
+/* On paper and in forced colours the gradient is not drawn: no empty band is left in its place */
+@media print, (forced-colors: active) {
+  .dawn { display: none; }
+}
+.dawn .stars-far {
+  box-shadow:
+    4cqw 6cqh rgba(241, 234, 220, 0.8), 13cqw 11cqh rgba(241, 234, 220, 0.7), 24cqw 4cqh rgba(125, 195, 224, 0.75),
+    37cqw 9cqh rgba(241, 234, 220, 0.8), 52cqw 3cqh rgba(241, 234, 220, 0.7), 63cqw 12cqh rgba(241, 234, 220, 0.75),
+    76cqw 5cqh rgba(125, 195, 224, 0.8), 89cqw 8cqh rgba(241, 234, 220, 0.75), 8cqw 22cqh rgba(241, 234, 220, 0.6),
+    20cqw 18cqh rgba(241, 234, 220, 0.55), 31cqw 26cqh rgba(241, 234, 220, 0.6), 46cqw 20cqh rgba(241, 234, 220, 0.6),
+    58cqw 25cqh rgba(125, 195, 224, 0.5), 70cqw 19cqh rgba(241, 234, 220, 0.6), 84cqw 23cqh rgba(241, 234, 220, 0.55),
+    95cqw 17cqh rgba(241, 234, 220, 0.6), 3cqw 31cqh rgba(241, 234, 220, 0.42), 16cqw 35cqh rgba(241, 234, 220, 0.36),
+    40cqw 29cqh rgba(241, 234, 220, 0.45), 53cqw 33cqh rgba(241, 234, 220, 0.38), 77cqw 30cqh rgba(241, 234, 220, 0.42),
+    91cqw 36cqh rgba(241, 234, 220, 0.32), 11cqw 42cqh rgba(241, 234, 220, 0.26), 29cqw 39cqh rgba(241, 234, 220, 0.3),
+    65cqw 40cqh rgba(241, 234, 220, 0.24), 83cqw 43cqh rgba(241, 234, 220, 0.2);
+}
+.dawn .tw:nth-child(1) { left: 17%; top: 8%; }
+.dawn .tw:nth-child(2) { left: 44%; top: 14%; width: 4px; height: 4px; }
+.dawn .tw:nth-child(3) { left: 68%; top: 27%; background: rgba(125, 195, 224, 0.85); }
+.dawn .tw:nth-child(4) { left: 86%; top: 15%; }
+.dawn .tw:nth-child(5) { left: 30%; top: 30%; background: rgba(241, 234, 220, 0.7); }
+@media (min-width: 62rem) {
+  .dawn { height: clamp(17rem, 44vh, 26rem); height: clamp(17rem, 44svh, 26rem); }
+}
+@media (max-width: 48rem) {
+  /* A phone's sky is narrow: fewer stars */
+  .dawn .stars-far {
+    box-shadow:
+      6cqw 5cqh rgba(241, 234, 220, 0.75), 22cqw 10cqh rgba(125, 195, 224, 0.7), 41cqw 4cqh rgba(241, 234, 220, 0.75),
+      58cqw 9cqh rgba(241, 234, 220, 0.7), 77cqw 5cqh rgba(241, 234, 220, 0.75), 93cqw 12cqh rgba(241, 234, 220, 0.65),
+      12cqw 21cqh rgba(241, 234, 220, 0.55), 34cqw 18cqh rgba(241, 234, 220, 0.55), 66cqw 23cqh rgba(125, 195, 224, 0.5),
+      88cqw 26cqh rgba(241, 234, 220, 0.5), 5cqw 31cqh rgba(241, 234, 220, 0.4), 48cqw 29cqh rgba(241, 234, 220, 0.4),
+      80cqw 34cqh rgba(241, 234, 220, 0.32), 25cqw 40cqh rgba(241, 234, 220, 0.25), 62cqw 43cqh rgba(241, 234, 220, 0.2);
+  }
+}
+
 /* Pixel sparkles for the project cards (hover only, see the motion block): a plus like the logo's stars and
    two single pixels, one cream, one blue. Invisible when still. */
 .tale-top,
@@ -1107,6 +1165,12 @@ a:hover { text-decoration-thickness: 2px; }
   .is-live .tw:nth-child(3) { animation-duration: 5.3s; animation-delay: -3.9s; }
   .is-live .tw:nth-child(4) { animation-duration: 7.1s; animation-delay: -1.1s; }
   .is-live .tw:nth-child(5) { animation-duration: 5.8s; animation-delay: -4.6s; }
+  /* The dawn's stars are going out: they only breathe a little */
+  @keyframes twinkle-dawn {
+    0%, 100% { opacity: 1; }
+    50% { opacity: 0.5; }
+  }
+  .dawn .is-live .tw { animation-name: twinkle-dawn; }
 
   /* --- Cover: the logo's plus stars glint, its single pixels blink, now and then --- */
   @keyframes glint {
