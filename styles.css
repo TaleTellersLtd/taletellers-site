@@ -312,7 +312,7 @@ a:hover { text-decoration-thickness: 2px; }
   padding-block: clamp(1.5rem, 3.4vw, 2.75rem) clamp(1.75rem, 3vw, 2.5rem);
 }
 .hero-title { grid-column: 1 / span 8; }
-.hero-head h1 { white-space: nowrap; }
+.hero-head h2 { font-size: var(--step-display); line-height: 0.98; letter-spacing: -0.02em; white-space: nowrap; }
 .hero-head .line { display: block; overflow: hidden; padding-bottom: 0.14em; margin-bottom: -0.14em; }
 .hero-head .line > span { display: block; }
 .hero-side { grid-column: 9 / -1; padding-bottom: 0.5rem; }
@@ -821,7 +821,7 @@ a:hover { text-decoration-thickness: 2px; }
   .brand img { width: 2.4rem; height: 2.4rem; }
   .brand span { font-size: 1.5rem; }
 
-  .hero-head h1 { white-space: normal; }
+  .hero-head h2 { white-space: normal; }
 
   .case-small { grid-template-columns: 1fr; }
   .case-small img { max-width: 15rem; }
@@ -856,3 +856,32 @@ a:hover { text-decoration-thickness: 2px; }
 .case-soon p { max-width: 38rem; margin-top: 0.4rem; }
 .study-soon .soon-card { border: 2px dashed var(--rule); border-radius: 8px; padding: clamp(1.75rem, 4vw, 3rem); text-align: center; max-width: 46rem; margin-inline: auto; }
 .study-soon .soon-card p { margin: 0.6rem auto 0; max-width: 34rem; }
+
+/* ---------- The cover: a dark band at the top of the home page (John, 12 Nov 2026) ----------
+   The book opens and closes at night: the header and this band share Chapter II's night colours. */
+.site-header-night { background: var(--night); }
+.site-header-night .brand span,
+.site-header-night .site-nav a { color: var(--on-night); }
+.site-header-night :focus-visible { outline-color: var(--sky); }
+.cover { position: relative; overflow: hidden; background: var(--night); color: var(--on-night); }
+.cover-inner {
+  position: relative;
+  display: flex;
+  align-items: center;
+  gap: clamp(1.5rem, 3.5vw, 3rem);
+  padding-block: clamp(1.75rem, 3.5vw, 3rem) clamp(2.25rem, 4.5vw, 3.75rem);
+}
+.cover-sky { position: absolute; right: 0; top: 50%; width: min(42%, 30rem); height: auto; transform: translateY(-50%); opacity: 0.85; pointer-events: none; }
+.cover-logo { position: relative; flex: none; width: clamp(8.5rem, 12vw, 10.5rem); height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
+.cover-text { position: relative; max-width: 36rem; }
+.cover h1 { color: var(--on-night); font-size: clamp(3.25rem, 6.4vw, 5.75rem); line-height: 0.95; }
+.cover-line { margin: 0.9rem 0 0; font-size: var(--step-lead); line-height: 1.4; color: var(--on-night); }
+
+@media (max-width: 48rem) {
+  .cover-inner { flex-direction: column; text-align: center; gap: 1rem; padding-block: 1.5rem 2.25rem; }
+  .cover-sky { top: 0.25rem; right: -2rem; width: 18rem; transform: none; opacity: 0.6; }
+  .cover-logo { width: clamp(6rem, 28vw, 7.25rem); }
+  .cover-text { max-width: 26rem; }
+  .cover h1 { font-size: clamp(2.6rem, 11vw, 3.5rem); }
+  .cover-line { margin-top: 0.6rem; }
+}

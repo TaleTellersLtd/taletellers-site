@@ -12,7 +12,7 @@
   <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
   <link rel="preload" href="fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=5">
+  <link rel="stylesheet" href="styles.css?v=6">
   <script src="site.js?v=5"></script>
 
   <meta property="og:type" content="website">
@@ -26,7 +26,7 @@
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
-  <header class="site-header">
+  <header class="site-header site-header-night">
     <div class="wrap">
       <!-- LOGO: images/logo-mark.svg, logo v4 (John, 12 Nov 2026) -->
       <a class="brand" href="index.html" aria-label="TaleTellers, home">
@@ -46,12 +46,43 @@
   </header>
 
   <main id="main">
+    <!-- ============ THE COVER: who we are ============ -->
+    <section class="cover" aria-labelledby="site-title">
+      <div class="wrap cover-inner">
+        <!-- OLD SITE SKY: moon and stars reused from the live site at John's request -->
+        <svg class="cover-sky" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
+          <defs>
+            <mask id="m-moon-cover">
+              <circle cx="478" cy="78" r="30" fill="#fff"/>
+              <circle cx="492" cy="68" r="26" fill="#000"/>
+            </mask>
+          </defs>
+          <circle cx="478" cy="78" r="30" fill="#f1eadc" mask="url(#m-moon-cover)"/>
+          <g fill="#f1eadc">
+            <rect x="90" y="60" width="4" height="4"/>
+            <rect x="160" y="110" width="3" height="3"/>
+            <rect x="250" y="40" width="4" height="4"/>
+            <rect x="330" y="90" width="3" height="3"/>
+            <rect x="400" y="30" width="4" height="4"/>
+            <rect x="540" y="140" width="3" height="3"/>
+            <rect x="40" y="150" width="3" height="3"/>
+            <rect x="560" y="40" width="3" height="3"/>
+          </g>
+        </svg>
+        <img class="cover-logo" src="images/logo-mark.svg?v=4" width="160" height="160" alt="">
+        <div class="cover-text">
+          <h1 id="site-title">TaleTellers</h1>
+          <p class="cover-line">A one-person Scottish studio that uses trained AI agents to build websites and video game mods.</p>
+        </div>
+      </div>
+    </section>
+
     <!-- ============ CHAPTER I: WEBSITES ============ -->
     <section class="hero" aria-labelledby="hero-title">
       <div class="wrap hero-head">
         <div class="hero-title">
           <p class="chapter-mark"><span>Chapter I</span> Websites</p>
-          <h1 id="hero-title"><span class="line"><span>A website, an app</span></span> <span class="line"><span>and an admin panel.</span></span></h1>
+          <h2 id="hero-title"><span class="line"><span>A website, an app</span></span> <span class="line"><span>and an admin panel.</span></span></h2>
         </div>
         <div class="hero-side">
           <p class="standfirst">For Masonic lodges and Provinces, clubs, charities and local businesses. Your site can install on a phone like an app, and you edit it yourself. We host it; you keep your domain.</p>
