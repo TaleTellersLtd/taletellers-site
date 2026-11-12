@@ -281,7 +281,7 @@ a:hover { text-decoration-thickness: 2px; }
 .axis { display: grid; grid-template-columns: repeat(12, minmax(0, 1fr)); column-gap: var(--gap); }
 .axis > :first-child { grid-column: 1 / span 5; }
 .axis > .axis-body { grid-column: 6 / -1; max-width: 40rem; }
-.lead { font-size: var(--step-lead); line-height: 1.42; }
+.lead { font-size: var(--step-lead); line-height: 1.42; text-wrap: pretty; }
 
 /* Simple, honest frames for real screenshots */
 .frame {
@@ -449,6 +449,8 @@ a:hover { text-decoration-thickness: 2px; }
   background: var(--page-deep);
 }
 .plate-figure .frame { box-shadow: 0 0 0 1px rgba(51, 36, 26, 0.35), 0 20px 40px -22px rgba(51, 36, 26, 0.6); }
+/* The hosting plate's screenshot sits a little lower, so the plate's edge crops it in the photographs, never through the demo's headline. */
+.plate-host .frame { margin-top: 2rem; }
 .plate-app .plate-figure { background: var(--blue); }
 .plate-admin .plate-figure { background: var(--green); }
 .plate-a { width: 44%; margin-left: 4%; }
@@ -505,7 +507,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .tier-local .tier-price { color: var(--ink-strong); }
 .tier-price small { font-family: var(--sans); font-size: 1.125rem; font-weight: 500; letter-spacing: 0; }
-.tier-addon { margin: 0.6rem 0 0; padding: 0.7rem 1rem; background: var(--page-light); }
+.tier-incl { margin: 0.55rem 0 0; }
 .tier-tbc {
   display: inline-block;
   margin: 0.35rem 0 0;
@@ -537,8 +539,6 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .sum-line { margin: 0; }
 .sum-live input[type="range"] { display: block; width: 100%; max-width: 26rem; height: 2.75rem; margin: 0.25rem 0; accent-color: var(--green-deep); }
-.sum-check { display: inline-flex; align-items: center; gap: 0.6rem; min-height: 44px; font-weight: 500; cursor: pointer; }
-.sum-check input { width: 1.4rem; height: 1.4rem; margin: 0; accent-color: var(--green-deep); }
 .tier-org .sum-total { color: var(--on-green); }
 .tier-org .sum-live input[type="range"] { accent-color: var(--on-green); }
 
@@ -804,6 +804,7 @@ a:hover { text-decoration-thickness: 2px; }
   .plate,
   .plate-site,
   .plate-host { grid-column: 1 / -1; }
+  .plate-host .frame { margin-top: 0; }
 
   .tales { grid-template-columns: 1fr; }
 
@@ -879,7 +880,7 @@ a:hover { text-decoration-thickness: 2px; }
 .cover-logo { width: 100%; height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
 .cover-text { position: relative; max-width: 36rem; }
 .cover h1 { color: var(--on-night); font-size: clamp(3.25rem, 6.4vw, 5.75rem); line-height: 0.95; }
-.cover-line { margin: 0.9rem 0 0; font-size: var(--step-lead); line-height: 1.4; color: var(--on-night); }
+.cover-line { margin: 0.9rem 0 0; font-size: var(--step-lead); line-height: 1.4; color: var(--on-night); text-wrap: balance; }
 
 @media (max-width: 48rem) {
   .cover-inner { flex-direction: column; text-align: center; gap: 1rem; padding-block: 1.5rem 2.25rem; }

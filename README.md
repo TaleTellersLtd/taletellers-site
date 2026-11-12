@@ -23,8 +23,15 @@
 > they keep the page's edge crossing the screen at an even pace, so work them out again if the perspective changes.
 > The hero's "The app" screen plays the same `.phone-loop` as the "app, with notifications" plate, cut to the hero's
 > frame; the check fails a `.phone-loop` without `data-live`.
+>
+> **Content round (same branch, 12 Nov 2026, not live).** Cover line: "A Scottish creative studio building websites,
+> apps and video game mods." Two showcases only: the Provincial Grand Lodge of Linlithgowshire and AB2000 (a Scottish
+> plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations are
+> both £250 set-up + £20 a month with the app included (12 months = £490); Companies by quote. The sliders read
+> `data-setup` and `data-monthly` (pence) and there is no app tick box any more.
 
-Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a small UK games studio.
+Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a Scottish creative studio that builds
+websites and apps and makes video game mods.
 
 Plain static HTML/CSS served by GitHub Pages. No build step, no JavaScript, no external fonts,
 CDNs, trackers or analytics. Do not change or delete `CNAME` (it sets the custom domain).

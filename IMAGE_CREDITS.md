@@ -10,8 +10,10 @@ CC0 needs no credit; the footer credits it anyway.
 
 ## Our own screenshots and artwork
 
-- `images/pgl-*.webp`, `images/lodge272-*.webp`: screenshots of TaleTellers' own concept
-  demos (12 Nov 2026).
+- `images/pgl-*.webp`: screenshots of TaleTellers' own Provincial Grand Lodge of Linlithgowshire concept demo
+  (12 Nov 2026).
+- `images/ab2000-*.webp`: screenshots of TaleTellers' own AB2000 concept demo (see the next section for the
+  photographs inside them).
 - `images/admin-*.webp`: screenshots of the TaleTellers admin panel, running on test data ("Admin Test Club").
 - `images/hyguns-logo.png`: the HyGuns logo.
 - `images/mod-stone.png`, `images/mod-wool.png`, `images/mod-slabs.png`: the project logos of our own Minecraft mods
@@ -24,6 +26,30 @@ CC0 needs no credit; the footer credits it anyway.
   at John's request. The motion preview (12 Nov 2026) uses the same SVG a second time, under the turning page. The
   extra stars, the logo's glints and the card sparkles are small CSS squares, not drawings. Anything that loops only
   runs when the visitor allows motion, and "Pause motion" stops it (`scripts/check_site.py` checks both).
+
+### The AB2000 demo screenshots (12 Nov 2026)
+
+Taken headless from <https://thescar4295.github.io/ab2000-demo/> on 12 Nov 2026 at device pixel ratio 2, scaled down
+and saved as WebP. Each keeps the demo's own "Concept demo by TaleTellers Ltd" banner, as the Province screenshots
+do. No person or face is in any frame (each photograph was checked at full size).
+
+| File | What it is | Photographs visible in it |
+| --- | --- | --- |
+| `images/ab2000-desktop.webp` | The demo's home page at 1440 x 900. Used in the home page case study and under the address bar in "Hosting, on your own domain". | Two Kobelco SK130LC tracked excavators; a truck-mounted road sweeper, side view; a SANY SY155U tracked excavator. |
+| `images/ab2000-phone.webp` | The home page at 390 x 844, saved at 520 x 1125. | The two Kobelco SK130LC tracked excavators. |
+| `images/ab2000-desktop-tall.webp` | The demo's Fleet Vehicles page at 1200 x 1650. Used on `work.html`. | The SANY SY155U; a DX100W wheeled excavator; a Scania eight-wheeler with a Palfinger lorry loader; the road sweeper. |
+
+**Credit: "Photos: AB2000."** Every photograph in these three frames is AB2000's own, taken by AB2000 of its own
+fleet and supplied for its website, as the demo's own photo credits page records
+(<https://thescar4295.github.io/ab2000-demo/credits/>). They are credited on this site in the `work.html` caption
+("Fleet photographs: AB2000.") and in the footer of `index.html`.
+
+None of the Unsplash or Wikimedia Commons stand-in photographs listed in the demo's `docs/IMAGE_PROVENANCE.md` is in
+any of these frames, so no Creative Commons attribution is owed here. The one stand-in still used by the demo on
+12 Nov 2026 ("MTS - MAN suction excavator" by Cjp24, [CC BY-SA 4.0](https://creativecommons.org/licenses/by-sa/4.0/),
+via [Wikimedia Commons](https://commons.wikimedia.org/wiki/File:MTS_-_MAN_suction_excavator_(1).jpg)) shows workers
+and was kept out of frame on purpose. If a screenshot is ever retaken with that photo in view, it needs that
+credit and licence link on the page.
 
 ### The phone loop in "The app, with notifications" (motion preview, 12 Nov 2026)
 
