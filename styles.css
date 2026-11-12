@@ -1253,7 +1253,7 @@ a:hover { text-decoration-thickness: 2px; }
        way home; it is two page-widths away, about where a reader holds a book. The stage is see-through and lets
        clicks through: Chapter II lies under it. */
     .chapter-stage { position: sticky; top: 0; z-index: 1; overflow: clip; perspective: 200vw; perspective-origin: 0 50%; pointer-events: none; }
-    .chapter-page {
+    .chapter-turn .chapter-page {
       position: relative;
       isolation: isolate;
       display: grid;
@@ -1268,8 +1268,8 @@ a:hover { text-decoration-thickness: 2px; }
       animation-timeline: --turn;
       animation-range: contain 0% contain var(--turn-run);
     }
-    .chapter-page::before,
-    .chapter-page::after {
+    .chapter-turn .chapter-page::before,
+    .chapter-turn .chapter-page::after {
       content: "";
       position: absolute;
       inset: 0;
@@ -1277,14 +1277,14 @@ a:hover { text-decoration-thickness: 2px; }
       pointer-events: none;
     }
     /* The sheen sits on the paper, under the words (z-index), so the ink stays sharp */
-    .chapter-page::before {
+    .chapter-turn .chapter-page::before {
       z-index: -1;
       background: linear-gradient(to right, rgba(255, 252, 240, 0) 34%, rgba(255, 252, 240, 0.6) 62%, rgba(255, 252, 240, 0.18) 80%, rgba(255, 252, 240, 0) 92%);
       animation: page-sheen 1s linear both;
       animation-timeline: --turn;
       animation-range: contain 0% contain var(--turn-run);
     }
-    .chapter-page::after {
+    .chapter-turn .chapter-page::after {
       background: linear-gradient(to right, rgba(24, 16, 9, 0.8), rgba(24, 16, 9, 0.42) 20%, rgba(24, 16, 9, 0.15) 48%, rgba(24, 16, 9, 0.09) 64%, rgba(24, 16, 9, 0.15) 82%, rgba(24, 16, 9, 0.3));
       animation: page-shade 1s linear both;
       animation-timeline: --turn;
