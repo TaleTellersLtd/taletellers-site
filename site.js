@@ -1,11 +1,12 @@
 /* TaleTellers: small progressive enhancements. Every page reads and works fully without this file.
    1. Motion: a hero entrance and scroll reveals. The "js" class switches the hidden start states on
-      (see the motion block in styles.css), and only when the visitor has not asked for reduced motion.
+      (see the motion block in styles.css). Which states those are is the stylesheet's business: with motion
+      allowed things rise into place; with reduced motion the reveals are short fades and nothing moves
+      (styles.css, "The gentle version"). So this file never asks which of the two the visitor wants.
    2. Pricing: what each plan adds up to after a number of months. */
 (function () {
   'use strict';
   var root = document.documentElement;
-  var reduce = window.matchMedia && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
   function showAll() {
     var all = document.querySelectorAll('[data-reveal], .hero');
@@ -69,7 +70,6 @@
 
   function start() {
     setUpSums();
-    if (reduce) return;
     try {
       setUpMotion();
     } catch (error) {
@@ -77,7 +77,7 @@
     }
   }
 
-  if (!reduce) root.classList.add('js');
+  root.classList.add('js');
 
   if (document.readyState === 'loading') {
     document.addEventListener('DOMContentLoaded', start);

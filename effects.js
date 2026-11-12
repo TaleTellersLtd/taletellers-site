@@ -6,8 +6,10 @@
       reports no tilt (iPhones are never asked) gets a slow drift from the CSS instead.
    4. Prices and download figures count up once. The HTML keeps the real numbers and gets them back at the end.
    5. Chapter II's cards tilt towards the pointer, and now and then a shooting star crosses its sky.
-   Nothing here runs under prefers-reduced-motion: reduce. One requestAnimationFrame loop, alive only while
-   something is easing. */
+   6. .is-night on the chapter page once it has been read. Only the gentle version uses it (styles.css, "The
+      gentle version"): there the page turn is a fade from paper into night.
+   Under prefers-reduced-motion: reduce nothing here moves anything: 1 to 5 stay off and only 6 has any effect.
+   One requestAnimationFrame loop, alive only while something is easing. */
 (function () {
   'use strict';
   var doc = document;
@@ -224,6 +226,18 @@
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 1 });
     each('.tier-price, .tale-stats dd, .tale-figure', function (el) { counts.observe(el); });
+
+    // 6. The chapter page is "night" once its title, the word "Worlds", has climbed above the middle of the screen
+    //    (the top 45%), and paper again on the way back up. A class and nothing else: the stylesheet fades the
+    //    page with it under reduced motion, and ignores it where the page really turns.
+    var turn = doc.querySelector('.chapter-turn');
+    var title = turn && turn.querySelector('.chapter-name');
+    if (title) {
+      new IntersectionObserver(function (entries) {
+        var entry = entries[entries.length - 1];
+        turn.classList.toggle('is-night', entry.isIntersecting || entry.boundingClientRect.top < 0);
+      }, { rootMargin: '0px 0px -55% 0px' }).observe(title);
+    }
 
     button.addEventListener('click', function () {
       paused = !paused;

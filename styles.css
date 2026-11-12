@@ -741,7 +741,7 @@ a:hover { text-decoration-thickness: 2px; }
 .prose a { color: var(--green-text); font-weight: 700; }
 .privacy-body { padding-bottom: var(--section); }
 
-/* ---------- Motion: states are set only when site.js has run and the visitor allows motion ---------- */
+/* ---------- Motion: states are set only when site.js has run (.js) and the visitor allows motion ---------- */
 @media (prefers-reduced-motion: no-preference) {
   .js .hero-head .line > span { transform: translateY(108%); transition: transform 850ms var(--ease-out); }
   .js .hero-head .line:nth-child(2) > span { transition-delay: 90ms; }
@@ -775,10 +775,7 @@ a:hover { text-decoration-thickness: 2px; }
   .js .plate[data-reveal] .plate-b { opacity: 0; transform: translateY(24px); transition: opacity 500ms ease 350ms, transform 900ms var(--ease-out) 350ms; }
   .js .plate[data-reveal].is-in .plate-b { opacity: 1; transform: none; }
 }
-@media (prefers-reduced-motion: reduce) {
-  html { scroll-behavior: auto; }
-  .btn, .contact-line a { transition: none; }
-}
+/* What prefers-reduced-motion: reduce gets instead is at the end of this file: "The gentle version". */
 
 /* ---------- Tablet and phone ---------- */
 @media (max-width: 68rem) {
@@ -1397,4 +1394,77 @@ a:hover { text-decoration-thickness: 2px; }
   .fx-paused .glint,
   .fx-paused .blink,
   .fx-paused .phone-loop.is-live * { animation-play-state: paused; }
+}
+
+/* ---------- The gentle version: what prefers-reduced-motion: reduce gets (John, 12 Nov 2026) ----------
+   Nothing travels, grows, tilts or loops (WCAG 2.3.3): no rise, no parallax, no drifting or shooting stars, no
+   phone loop (it shows its still: the home screen with the reminder on it), no page turn, and "Pause motion"
+   stays hidden because nothing is left to pause. What remains is polish that stays where it is:
+   - colours still ease on hover and press, but nothing lifts or shrinks;
+   - the scroll reveals are short fades;
+   - the chapter page fades from paper into night.
+   Transitions only, and only of opacity and colour: scripts/check_site.py fails anything else in a reduce block.
+   Everything here waits for a class a script sets (.js, .is-in, .is-night), so without scripts the page is
+   simply all there. */
+@media (prefers-reduced-motion: reduce) {
+  html { scroll-behavior: auto; }
+  .btn { transition: background-color 160ms ease, color 160ms ease; }
+  .btn:active { transform: none; }
+
+  /* Reveals: in place, a quarter of a second, the second and third of a group a beat behind the first */
+  .js [data-reveal] { opacity: 0; transition: opacity 260ms ease; }
+  .js [data-reveal="1"] { transition-delay: 60ms; }
+  .js [data-reveal="2"] { transition-delay: 120ms; }
+  .js [data-reveal].is-in { opacity: 1; }
+
+  /* The page turn, as a crossfade. The chapter page keeps its place, its size and its words. Behind the words
+     lies .turn-sky, the same night the turning page uncovers (here without its moon: Chapter II's own moon is just
+     below), see-through until effects.js sets .is-night; then it fades in over the paper in 400ms, and the words
+     take the night's colours as the two pass each other, so they are hard to read for as little time as possible.
+     Scrolling back up fades it back to paper. */
+  .chapter-stage,
+  .chapter-page { position: relative; }
+  .chapter-turn .turn-sky { display: block; background: var(--night); opacity: 0; transition: opacity 400ms ease; }
+  .chapter-turn .turn-moon,
+  .chapter-turn .shooting { display: none; }
+  .chapter-no,
+  .chapter-name,
+  .epigraph { transition: color 200ms ease 60ms; }
+  .is-night .turn-sky { opacity: 1; }
+  .is-night .chapter-no { color: var(--leaf); }
+  .is-night .chapter-name,
+  .is-night .epigraph { color: var(--on-night); }
+  /* Its stars keep to the margins, clear of the words */
+  .chapter-turn .stars-far {
+    box-shadow:
+      7cqw 6cqh rgba(241, 234, 220, 0.7), 24cqw 9cqh rgba(241, 234, 220, 0.6), 46cqw 4cqh rgba(241, 234, 220, 0.7),
+      71cqw 8cqh rgba(125, 195, 224, 0.7), 92cqw 5cqh rgba(241, 234, 220, 0.7), 5cqw 26cqh rgba(241, 234, 220, 0.6),
+      94cqw 31cqh rgba(241, 234, 220, 0.6), 9cqw 44cqh rgba(241, 234, 220, 0.5), 90cqw 46cqh rgba(125, 195, 224, 0.6),
+      12cqw 93cqh rgba(241, 234, 220, 0.6), 38cqw 96cqh rgba(241, 234, 220, 0.55), 63cqw 92cqh rgba(241, 234, 220, 0.6),
+      86cqw 95cqh rgba(241, 234, 220, 0.6);
+  }
+  .chapter-turn .tw:nth-child(1) { left: 16%; top: 11%; }
+  .chapter-turn .tw:nth-child(2) { left: 82%; top: 15%; width: 4px; height: 4px; }
+  .chapter-turn .tw:nth-child(3) { left: 5%; top: 37%; }
+  .chapter-turn .tw:nth-child(4) { left: 95%; top: 22%; background: #7dc3e0; }
+  .chapter-turn .tw:nth-child(5) { left: 50%; top: 95%; }
+  @media (min-width: 62rem) {
+    .chapter-turn .stars-far {
+      box-shadow:
+        4cqw 8cqh rgba(241, 234, 220, 0.75), 11cqw 30cqh rgba(241, 234, 220, 0.65), 17cqw 12cqh rgba(125, 195, 224, 0.75),
+        8cqw 55cqh rgba(241, 234, 220, 0.6), 15cqw 72cqh rgba(241, 234, 220, 0.65), 3cqw 84cqh rgba(241, 234, 220, 0.6),
+        19cqw 44cqh rgba(241, 234, 220, 0.55), 26cqw 24cqh rgba(241, 234, 220, 0.6), 30cqw 7cqh rgba(241, 234, 220, 0.7),
+        43cqw 11cqh rgba(241, 234, 220, 0.6), 56cqw 5cqh rgba(241, 234, 220, 0.7), 68cqw 10cqh rgba(241, 234, 220, 0.65),
+        74cqw 27cqh rgba(241, 234, 220, 0.6), 82cqw 14cqh rgba(241, 234, 220, 0.75), 88cqw 38cqh rgba(125, 195, 224, 0.7),
+        95cqw 22cqh rgba(241, 234, 220, 0.7), 81cqw 58cqh rgba(241, 234, 220, 0.6), 92cqw 70cqh rgba(241, 234, 220, 0.65),
+        85cqw 86cqh rgba(241, 234, 220, 0.6), 97cqw 90cqh rgba(241, 234, 220, 0.55), 24cqw 92cqh rgba(241, 234, 220, 0.6),
+        39cqw 95cqh rgba(241, 234, 220, 0.55), 58cqw 93cqh rgba(241, 234, 220, 0.6), 71cqw 96cqh rgba(241, 234, 220, 0.55),
+        12cqw 93cqh rgba(241, 234, 220, 0.6);
+    }
+    .chapter-turn .tw:nth-child(1) { left: 22%; top: 16%; }
+    .chapter-turn .tw:nth-child(2) { left: 91%; top: 9%; }
+    .chapter-turn .tw:nth-child(3) { left: 9%; top: 40%; }
+    .chapter-turn .tw:nth-child(4) { left: 78%; top: 44%; }
+    .chapter-turn .tw:nth-child(5) { left: 64%; top: 90%; }
+  }
 }

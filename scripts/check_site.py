@@ -121,8 +121,22 @@ def check_motion(css):
     2. An animation that loops only runs under .is-live, the class effects.js sets, because effects.js is also
        what shows the "Pause motion" button: no script, no loop, so a loop can always be paused (WCAG 2.2.2).
     3. When any loop exists, the home page has that button, loads effects.js, and the CSS has the paused state.
+    4. The gentle version (12 Nov 2026): inside a @media (prefers-reduced-motion: reduce) block nothing may move.
+       No animation at all, and a transition may only name opacity or a colour (so a fade is fine, a slide is not).
     """
     css = re.sub(r"/\*.*?\*/", lambda comment: " " * len(comment.group()), css, flags=re.S)
+    still = {"none", "opacity", "color", "background-color", "border-color", "outline-color", "text-decoration-color"}
+    for match in re.finditer(r"(?<![\w-])(animation(?:-name)?|transition(?:-property)?)\s*:\s*([^;{}]+)", css):
+        rules = enclosing_rules(css, match.start())
+        if not any(rule.startswith("@media") and re.search(r"prefers-reduced-motion:\s*reduce", rule) for rule in rules):
+            continue
+        line = css.count("\n", 0, match.start()) + 1
+        name, value = match.group(1), match.group(2).strip()
+        assert not name.startswith("animation") or value == "none", \
+            f"styles.css line {line}: an animation inside a reduced-motion block"
+        moving = [part.split()[0] for part in value.split(",") if part.split()[0] not in still]
+        assert name.startswith("animation") or not moving, \
+            f"styles.css line {line}: reduced motion may only fade opacity and colours, not {', '.join(moving)}"
     loops = 0
     for match in re.finditer(r"@keyframes\b|\binfinite\b", css):
         rules = enclosing_rules(css, match.start())
