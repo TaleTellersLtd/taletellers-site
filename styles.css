@@ -540,3 +540,6 @@ a:hover { text-decoration-thickness: 2px; }
   .shot-phone { bottom: -1.25rem; }
   .preview-only { margin: 0.4rem 0 0; }
 }
+
+/* Preview fix: keep the Photos screenshot the same height as its neighbours */
+img.crop-top { aspect-ratio: 520 / 880; object-fit: cover; object-position: top; height: auto; }
