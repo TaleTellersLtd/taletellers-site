@@ -45,6 +45,18 @@
 >    night header and the cover, or with an Android phone's tilt (about 9 degrees is the full lean; https only). A
 >    phone that reports no tilt gets `.fx-ambient`, a slow CSS drift. "Pause motion" stops all three. Never use
 >    `DeviceOrientationEvent.requestPermission` to detect an iPhone: Chrome has that function too.
+>
+> **Gentle round (branch `gentle-dawn-20261112`, 12 Nov 2026, not live).**
+> 1. `prefers-reduced-motion: reduce` gets a gentle version, not a bare one: "The gentle version", the last block of
+>    `styles.css`. Reveals are 260 ms fades, hover only changes colour, and the page turn is a 400 ms fade from the
+>    paper chapter page into night: `effects.js` sets `.is-night` on `.chapter-turn` once the word "Worlds" is above
+>    45% of the screen and takes it off on the way back up. Nothing moves or loops, so "Pause motion" stays hidden.
+>    `site.js` now sets `.js` and the reveal classes for everyone; the stylesheet decides what they do.
+> 2. The check has a fourth motion rule: inside a `prefers-reduced-motion: reduce` block there is no animation, and
+>    a transition may only name opacity or a colour.
+> 3. `.dawn`, between `.worlds` and `.contact` on the home page: a gradient from the night's colour to see-through
+>    over the page's own paper, with stars that thin out. Its height is in `svh`, so it never changes. Hidden in
+>    print and in forced colours.
 
 Our main page for TaleTellers.co.uk - the website of TaleTellers Ltd, a Scottish creative studio that builds
 websites and apps and makes video game mods.
