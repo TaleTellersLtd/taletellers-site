@@ -1,8 +1,1 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
-  <!-- LOGO PLACEHOLDER (draft 2, "green tile"): John is choosing the final logo. Swap this one file to change the favicon. -->
-  <rect width="32" height="32" rx="7" fill="#3E7A2B"/>
-  <path d="M7 11h4v-3h4v-3h2v3h4v3h4v4H7z" fill="#6DAA48"/>
-  <path d="M16 15c-3-2-7-2.5-11-2v12c4-.5 8 0 11 2 3-2 7-2.5 11-2V13c-4-.5-8 0-11 2z" fill="#F1E4C6"/>
-  <path d="M16 15v12" stroke="#3E7A2B" stroke-width="1.5"/>
-  <rect x="15" y="9" width="2" height="2" fill="#A8DDF0"/>
-</svg>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32"><rect width="32" height="32" rx="7" fill="#151225"/><rect x="24.5" y="5" width="3" height="1" fill="#ffe6b0"/><rect x="25.5" y="4" width="1" height="3" fill="#ffe6b0"/><rect x="5.5" y="5" width="1" height="1" fill="#ffe6b0"/><rect x="10" y="2.8" width="1" height="1" fill="#7dc3e0"/><rect x="4" y="9" width="1" height="1" fill="#ffe6b0"/><rect x="21" y="3" width="1" height="1" fill="#ffe6b0"/><path d="M7 11h4v-3h4v-3h2v3h4v3h4v4H7z" fill="#3b3266"/><path d="M16 15c-3-2-7-2.5-11-2v12c4-.5 8 0 11 2 3-2 7-2.5 11-2V13c-4-.5-8 0-11 2z" fill="#f2b45a"/><rect x="7.5" y="16.6" width="6" height="2" fill="#151225"/><rect x="9.5" y="18.6" width="2" height="5.6" fill="#151225"/><rect x="18.5" y="16.6" width="6" height="2" fill="#151225"/><rect x="20.5" y="18.6" width="2" height="5.6" fill="#151225"/><path d="M16 15v12" stroke="#151225" stroke-width="1.5"/><rect x="15" y="9" width="2" height="2" fill="#ffe6b0"/></svg>
