@@ -214,6 +214,15 @@ a:hover { text-decoration-thickness: 2px; }
 .site-nav a:hover,
 .site-nav a[aria-current="page"] { text-decoration: underline; text-decoration-thickness: 2px; }
 
+/* Narrow phones, and phones zoomed to 150% (about 260 CSS px; persona test, 13 Nov 2026): the four links keep to
+   one line each at a slightly smaller size, and below 320 px they sit two by two, so nothing scrolls sideways. */
+@media (max-width: 23rem) {
+  .site-nav a { font-size: 1rem; white-space: nowrap; }
+}
+@media (max-width: 19.95rem) {
+  .site-nav ul { display: grid; grid-template-columns: auto auto; justify-content: space-between; gap: 0 1rem; }
+}
+
 /* Buttons: one shape everywhere */
 .btn {
   display: inline-flex;
