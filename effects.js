@@ -117,9 +117,11 @@
   }
 
   // 4. Count a figure up to the number in the HTML. It starts from 10, 100... (the same number of digits),
-  //    and the figures are tabular, so nothing around it moves.
+  //    and the figures are tabular, so nothing around it moves. The figure is the first text with a digit in it,
+  //    so a word in front ("<small>from</small> £250") is left alone.
   function countUp(el) {
     var node = el.firstChild;
+    while (node && !(node.nodeType === 3 && /\d/.test(node.nodeValue))) node = node.nextSibling;
     var match = node && node.nodeType === 3 && /^(\D*)(\d+)(\.\d+)?([\s\S]*)$/.exec(node.nodeValue);
     if (!match || !on) return;
     var real = node.nodeValue;

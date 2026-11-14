@@ -27,7 +27,7 @@
 > **Content round (same branch, 12 Nov 2026, not live).** Cover line: "A Scottish creative studio building websites,
 > apps and video game mods." Two showcases only: the Provincial Grand Lodge of Linlithgowshire and AB2000 (a Scottish
 > plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations are
-> both £250 set-up + £20 a month with the app included (12 months = £490); Companies by quote. The sliders read
+> both £250 set-up + £20 a month with the app included (12 months = £490); Companies by quote. (14 Nov 2026: both prices read "from £250" and "from £20 a month", the totals read "from £490", and Companies says "Tell us what you need and we'll discuss it.") The sliders read
 > `data-setup` and `data-monthly` (pence) and there is no app tick box any more.
 >
 > **Book round (branch `pricing-app-optional-20261112`, 12 Nov 2026, not live).** This replaces what the two motion

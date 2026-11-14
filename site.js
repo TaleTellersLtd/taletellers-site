@@ -55,7 +55,7 @@
       var pence = setupPence + months * monthlyPence;
       total.textContent = '£' + (pence % 100 ? (pence / 100).toFixed(2) : String(pence / 100));
       label.textContent = months === 1 ? '1 month' : months + ' months';
-      range.setAttribute('aria-valuetext', label.textContent + ', ' + total.textContent + ' in total');
+      range.setAttribute('aria-valuetext', label.textContent + ', from ' + total.textContent + ' in total');
     }
     range.addEventListener('input', update);
     live.hidden = false;
