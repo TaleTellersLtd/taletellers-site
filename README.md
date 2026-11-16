@@ -1,15 +1,15 @@
 # taletellers-site
 
 > **Live site since 12 Nov 2026: "One book, two chapters".** Pages: `index.html` (Chapter I Websites, Chapter II
-> Worlds), `work.html` (case studies), `privacy.html`, `404.html`. `site.js` adds the reveals and the pricing months
-> slider; the pages work without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo: swap
+> Worlds), `work.html` (case studies), `privacy.html`, `404.html`. `site.js` adds the reveals; the pages work
+> without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo: swap
 > `images/logo-mark.svg` (header) and `favicon.svg`. Credits: `IMAGE_CREDITS.md`. Older notes below describe the
 > previous site.
 >
 > **Motion preview (branch `effects-preview-20261112`, not live).** `effects.js` (home page only, deferred, about
 > 3.9 KB gzipped) and the "Effects" part of `styles.css` add: drifting and twinkling stars and a glinting logo on
 > the cover, a phone that plays a 10-second loop of the Province demo, a page turn into Chapter II's night sky,
-> count-up prices and download figures, and tilting cards with pixel sparkles. Rules the check enforces: every
+> count-up download figures, and tilting cards with pixel sparkles. Rules the check enforces: every
 > `@keyframes` and every looping animation sits inside `@media (prefers-reduced-motion: no-preference)`, loops only
 > run on `.is-live` (on screen), and the "Pause motion" button (`.motion-toggle`) stops them. The page turn and the
 > parallax are CSS scroll-driven animations inside `@supports (animation-timeline: view())`; other browsers get the
@@ -26,9 +26,9 @@
 >
 > **Content round (same branch, 12 Nov 2026, not live).** Cover line: "A Scottish creative studio building websites,
 > apps and video game mods." Two showcases only: the Provincial Grand Lodge of Linlithgowshire and AB2000 (a Scottish
-> plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations are
-> both £250 set-up + £20 a month with the app included (12 months = £490); Companies by quote. (14 Nov 2026: both prices read "from £250" and "from £20 a month", the totals read "from £490", and Companies says "Tell us what you need and we'll discuss it.") The sliders read
-> `data-setup` and `data-monthly` (pence) and there is no app tick box any more.
+> plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations
+> invite visitors to ask for a quote; the app is included. Companies says "Tell us what you need and we'll discuss it."
+> No listed amounts or pricing calculators (16 Nov 2026, branch only; awaiting John's approval before publication).
 >
 > **Book round (branch `pricing-app-optional-20261112`, 12 Nov 2026, not live).** This replaces what the two motion
 > notes above say about the page turn and the cover's stars.

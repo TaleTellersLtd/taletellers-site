@@ -4,7 +4,7 @@
    2. .is-live on a section while it is on screen, so its loops only run when they can be seen.
    3. The cover's stars and moon lean away from the pointer, or follow an Android phone's tilt; a phone that
       reports no tilt (iPhones are never asked) gets a slow drift from the CSS instead.
-   4. Prices and download figures count up once. The HTML keeps the real numbers and gets them back at the end.
+   4. Download figures count up once. The HTML keeps the real numbers and gets them back at the end.
    5. Chapter II's cards tilt towards the pointer, and now and then a shooting star crosses its sky.
    6. .is-night on the chapter page once it has been read. Only the gentle version uses it (styles.css, "The
       gentle version"): there the page turn is a fade from paper into night.
@@ -117,11 +117,9 @@
   }
 
   // 4. Count a figure up to the number in the HTML. It starts from 10, 100... (the same number of digits),
-  //    and the figures are tabular, so nothing around it moves. The figure is the first text with a digit in it,
-  //    so a word in front ("<small>from</small> £250") is left alone.
+  //    and the figures are tabular, so nothing around it moves.
   function countUp(el) {
     var node = el.firstChild;
-    while (node && !(node.nodeType === 3 && /\d/.test(node.nodeValue))) node = node.nextSibling;
     var match = node && node.nodeType === 3 && /^(\D*)(\d+)(\.\d+)?([\s\S]*)$/.exec(node.nodeValue);
     if (!match || !on) return;
     var real = node.nodeValue;
@@ -227,7 +225,7 @@
         countUp(entry.target);
       });
     }, { rootMargin: '0px 0px -6% 0px', threshold: 1 });
-    each('.tier-price, .tale-stats dd, .tale-figure', function (el) { counts.observe(el); });
+    each('.tale-stats dd, .tale-figure', function (el) { counts.observe(el); });
 
     // 6. The chapter page is "night" once its title, the word "Worlds", has climbed above the middle of the screen
     //    (the top 45%), and paper again on the way back up. A class and nothing else: the stylesheet fades the
