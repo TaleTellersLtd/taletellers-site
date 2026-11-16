@@ -26,9 +26,10 @@
 >
 > **Content round (same branch, 12 Nov 2026, not live).** Cover line: "A Scottish creative studio building websites,
 > apps and video game mods." Two showcases only: the Provincial Grand Lodge of Linlithgowshire and AB2000 (a Scottish
-> plant hire firm), each a concept demo; the "Coming soon" slot stays. Pricing: Local business and Organisations
-> invite visitors to ask for a quote; the app is included. Companies says "Tell us what you need and we'll discuss it."
-> No listed amounts or pricing calculators (16 Nov 2026, branch only; awaiting John's approval before publication).
+> plant hire firm), each a concept demo; the "Coming soon" slot stays. Services: no price list and no
+> plans (John, 16 Nov 2026). The old pricing section is one short block, "We create websites for large businesses,
+> small businesses and organisations", with a "Get in touch" button to the contact section; it keeps the id `pricing`
+> so older links still work, and the nav calls it "Services" (branch only; awaiting John's approval before publication).
 >
 > **Book round (branch `pricing-app-optional-20261112`, 12 Nov 2026, not live).** This replaces what the two motion
 > notes above say about the page turn and the cover's stars.

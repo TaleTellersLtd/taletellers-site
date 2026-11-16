@@ -145,8 +145,6 @@ a:hover { text-decoration-thickness: 2px; }
 [id] { scroll-margin-top: 1rem; }
 
 :focus-visible { outline: 3px solid var(--green-text); outline-offset: 3px; }
-.tier-org :focus-visible { outline-color: var(--on-green); }
-.tier-co :focus-visible,
 .stage :focus-visible { outline-color: var(--ink-strong); }
 .worlds :focus-visible { outline-color: var(--sky); }
 
@@ -243,13 +241,9 @@ a:hover { text-decoration-thickness: 2px; }
 .btn:active { transform: scale(0.97); }
 .btn-small { min-height: 2.75rem; padding: 0.45rem 1rem; }
 .btn-outline { background: transparent; color: var(--ink-strong); box-shadow: inset 0 0 0 2px var(--ink-strong); }
-.btn-on-green { background: var(--on-green); color: var(--green-text); }
-.btn-ink { background: var(--ink-strong); color: var(--page); }
 @media (hover: hover) and (pointer: fine) {
   .btn:hover { background: var(--green-text); }
   .btn-outline:hover { background: var(--ink-strong); color: var(--page); }
-  .btn-on-green:hover { background: #fff; }
-  .btn-ink:hover { background: #1f150e; }
 }
 
 .text-link { font-weight: 700; color: var(--green-text); }
@@ -474,64 +468,9 @@ a:hover { text-decoration-thickness: 2px; }
 .plate-admin .plate-a { margin-left: 2%; }
 .plate-admin .plate-b { top: 22%; right: 6%; width: 42%; }
 
-/* ---------- Chapter I: pricing, three fields read top to bottom ---------- */
-.pricing { padding-top: var(--section); }
-.tiers {
-  display: grid;
-  grid-template-columns: minmax(0, 1fr) minmax(0, 1fr);
-  grid-template-rows: repeat(6, auto) auto;
-  margin-top: clamp(2.25rem, 4.5vw, 3.5rem);
-}
-.tier {
-  display: grid;
-  grid-row: span 6;
-  grid-template-rows: subgrid;
-  padding: clamp(2.25rem, 4vw, 3.5rem) clamp(1.25rem, 3vw, 2.75rem);
-}
-.tier-local { padding-left: var(--edge); background: var(--page-deep); }
-.tier-org { padding-right: var(--edge); background: var(--green-deep); color: var(--on-green); }
-.tier-co {
-  display: flex;
-  flex-wrap: wrap;
-  align-items: center;
-  justify-content: space-between;
-  gap: 1.25rem 3rem;
-  grid-column: 1 / -1;
-  grid-row: auto;
-  padding-inline: var(--edge);
-  background: var(--blue);
-  color: var(--ink-strong);
-}
-.tier-co h3 { margin-bottom: 0.35rem; }
-.tier-co .tier-cta { padding-top: 0; align-self: center; }
-.tier h3 { font-size: clamp(1.9rem, 3vw, 2.75rem); font-weight: 800; }
-.tier-org h3,
-.tier-org h4 { color: var(--on-green); }
-.tier-desc { margin: 0.75rem 0 1.5rem; font-size: 1.25rem; line-height: 1.4; max-width: 30rem; }
-.tier-row { padding-block: 1.1rem 1.3rem; border-top: 1px solid var(--rule); }
-.tier-org .tier-row { border-top-color: rgba(255, 251, 240, 0.4); }
-.tier-row h4 { margin-bottom: 0.2rem; font-family: var(--sans); font-size: 1.0625rem; font-weight: 700; letter-spacing: 0; }
-.tier-row p { max-width: 30rem; }
-.tier-incl { margin: 0.55rem 0 0; }
-.tier-tbc {
-  display: inline-block;
-  margin: 0.35rem 0 0;
-  padding: 0.5rem 0.9rem;
-  border: 2px dashed var(--on-green);
-  font-size: 1.25rem;
-  font-weight: 700;
-}
-.tier-cta { margin: 0; padding-top: 0.5rem; align-self: end; }
-.tier-statement {
-  margin: 0;
-  font-family: var(--serif);
-  font-size: clamp(1.375rem, 2.2vw, 1.875rem);
-  font-weight: 800;
-  line-height: 1.02;
-  letter-spacing: -0.018em;
-  color: var(--ink-strong);
-  text-wrap: balance;
-}
+/* ---------- Chapter I: services, one short block ---------- */
+.pricing { padding-block: var(--section); }
+.pricing .axis-body p { text-wrap: pretty; }
 
 /* ---------- The chapter page between the two chapters ---------- */
 .chapter-page {
@@ -771,11 +710,6 @@ a:hover { text-decoration-thickness: 2px; }
   .worlds-head h2,
   .worlds-head .lead { grid-column: 1 / -1; }
   .worlds-head .lead { padding-top: 1.25rem; max-width: 38rem; }
-
-  .tiers { grid-template-columns: 1fr; grid-template-rows: none; }
-  .tier { display: block; grid-row: auto; padding-inline: var(--edge); }
-  .tier-co { display: flex; }
-  .tier-cta { padding-top: 1rem; }
 
   .tale-lead { grid-template-columns: minmax(0, 8rem) minmax(0, 1fr); }
   .tale-stats { grid-column: 1 / -1; }
