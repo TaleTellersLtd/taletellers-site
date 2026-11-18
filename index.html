@@ -9,10 +9,11 @@
   <meta name="description" content="TaleTellers builds websites for Masonic lodges and Provinces, clubs, charities and local businesses, with an installable app, an admin panel and hosting on your own domain. We also make Hytale and Minecraft mods.">
   <link rel="canonical" href="https://taletellers.co.uk/">
   <meta name="theme-color" content="#f1e4c6">
-  <link rel="icon" href="favicon.svg?v=4" type="image/svg+xml">
+  <link rel="icon" href="favicon.svg?v=5" type="image/svg+xml">
+  <link rel="apple-touch-icon" href="apple-touch-icon.png?v=1">
   <link rel="preload" href="fonts/alegreya-latin-wght-normal.woff2" as="font" type="font/woff2" crossorigin>
   <link rel="preload" href="fonts/alegreya-sans-latin-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="stylesheet" href="styles.css?v=18">
+  <link rel="stylesheet" href="styles.css?v=19">
   <script src="site.js?v=9"></script>
   <script src="effects.js?v=5" defer></script>
 
@@ -22,17 +23,22 @@
   <meta property="og:description" content="Websites for lodges, clubs, charities and local businesses, with an installable app and an admin panel. Plus mods for Hytale and Minecraft.">
   <meta property="og:url" content="https://taletellers.co.uk/">
   <meta property="og:locale" content="en_GB">
-  <meta name="twitter:card" content="summary">
+  <meta property="og:image" content="https://taletellers.co.uk/images/og-card.png?v=1">
+  <meta property="og:image:width" content="1200">
+  <meta property="og:image:height" content="630">
+  <meta property="og:image:alt" content="The TaleTellers logo: a blue open book with two Ts, and the line: A Scottish creative studio building websites, apps and video game mods.">
+  <meta name="twitter:card" content="summary_large_image">
 </head>
 <body>
   <a class="skip-link" href="#main">Skip to content</a>
 
   <header class="site-header site-header-night">
     <div class="wrap">
-      <!-- LOGO: images/logo-mark.svg, logo v4 (John, 12 Nov 2026) -->
+      <!-- LOGO: day logo A1 "Double T" (John, 17 Nov 2026). Blue images/logo-day-lockup.svg on paper, the cream
+           images/logo-day-lockup-cream.svg on a night header. The night pixel book (images/logo-mark.svg, v4) belongs to
+           the dark cover and Chapter II. -->
       <a class="brand" href="index.html" aria-label="TaleTellers, home">
-        <img src="images/logo-mark.svg?v=4" width="32" height="32" alt="">
-        <span>TaleTellers</span>
+        <img class="brand-lockup" src="images/logo-day-lockup-cream.svg?v=1" width="185" height="44" alt="">
       </a>
       <nav class="site-nav" aria-label="Main">
         <ul>
@@ -75,10 +81,10 @@
             <rect x="560" y="40" width="3" height="3"/>
           </g>
         </svg>
-        <!-- The logo file is unchanged; the four squares sit exactly on its pixel stars and make them glint and blink. -->
+        <!-- Day logo A1 in cream: the same mark as the header, so the first screen shows one brand. The night pixel
+             book (v4) and its glinting stars moved to the top of Chapter II. -->
         <span class="cover-mark">
-          <img class="cover-logo" src="images/logo-mark.svg?v=4" width="160" height="160" alt="">
-          <i class="glint glint-a"></i><i class="glint glint-b"></i><i class="blink blink-a"></i><i class="blink blink-b"></i>
+          <img class="cover-logo" src="images/logo-day-mark-cream.svg?v=1" width="160" height="160" alt="">
         </span>
         <div class="cover-text">
           <h1 id="site-title">TaleTellers</h1>
@@ -339,6 +345,14 @@
         <i class="shooting"></i>
       </div>
       <div class="wrap">
+        <div class="worlds-top" data-live>
+        <!-- NIGHT LOGO: the pixel book (images/logo-mark.svg, v4) is the mark of Chapter II, the modding side (day/night
+             brand, John 12 Nov 2026). The file is unchanged; the four squares sit exactly on its pixel stars and make
+             them glint and blink. -->
+        <span class="night-mark">
+          <img class="night-logo" src="images/logo-mark.svg?v=4" width="160" height="160" loading="lazy" alt="">
+          <i class="glint glint-a"></i><i class="glint glint-b"></i><i class="blink blink-a"></i><i class="blink blink-b"></i>
+        </span>
         <!-- OLD SITE SKY: moon and stars reused from the live site at John's request -->
         <svg class="sky" viewBox="0 0 600 180" aria-hidden="true" focusable="false">
           <defs>
@@ -359,6 +373,7 @@
             <rect class="twinkle" x="560" y="40" width="3" height="3"/>
           </g>
         </svg>
+        </div>
 
         <div class="worlds-head">
           <h2 id="worlds-title" data-reveal>We build the worlds your stories happen in.</h2>

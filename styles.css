@@ -198,6 +198,8 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .brand img { width: 2.75rem; height: 2.75rem; }
 .brand span { font-family: var(--serif); font-size: 1.75rem; font-weight: 800; letter-spacing: -0.015em; color: var(--ink-strong); }
+/* Day logo A1: the lockup carries the name, so it is one image (the link's aria-label names it) */
+.brand .brand-lockup { width: auto; height: 2.75rem; }
 
 .site-nav ul { display: flex; gap: clamp(0.25rem, 2vw, 1.75rem); margin: 0; padding: 0; list-style: none; }
 .site-nav a {
@@ -521,6 +523,11 @@ a:hover { text-decoration-thickness: 2px; }
 .worlds h3,
 .worlds h4 { color: var(--on-night); }
 .sky { display: block; width: min(100%, 36rem); height: auto; margin-left: auto; }
+/* Chapter II's mark (the night pixel book) on the left of the moon */
+.worlds-top { display: flex; align-items: center; gap: var(--gap); }
+.worlds-top .sky { flex: 0 1 36rem; min-width: 0; }
+.night-mark { position: relative; flex: none; width: clamp(4.75rem, 8vw, 6.5rem); }
+.night-logo { display: block; width: 100%; height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
 .worlds-head {
   display: grid;
   grid-template-columns: repeat(12, minmax(0, 1fr));
@@ -751,6 +758,7 @@ a:hover { text-decoration-thickness: 2px; }
   .site-nav ul { justify-content: space-between; gap: 0.5rem; }
   .brand img { width: 2.4rem; height: 2.4rem; }
   .brand span { font-size: 1.5rem; }
+  .brand .brand-lockup { height: 2.4rem; }
 
   .hero-head h2 { white-space: normal; }
 
@@ -804,7 +812,7 @@ a:hover { text-decoration-thickness: 2px; }
 }
 .cover-sky { position: absolute; right: 0; top: 50%; width: min(42%, 30rem); height: auto; transform: translateY(-50%); opacity: 0.85; pointer-events: none; }
 .cover-mark { position: relative; flex: none; width: clamp(8.5rem, 12vw, 10.5rem); }
-.cover-logo { width: 100%; height: auto; border-radius: 16%; box-shadow: 0 0 0 1px rgba(241, 228, 198, 0.16); }
+.cover-logo { display: block; width: 100%; height: auto; }
 .cover-text { position: relative; max-width: 36rem; }
 .cover h1 { color: var(--on-night); font-size: clamp(3.25rem, 6.4vw, 5.75rem); line-height: 0.95; }
 .cover-line { margin: 0.9rem 0 0; font-size: var(--step-lead); line-height: 1.4; color: var(--on-night); text-wrap: balance; }

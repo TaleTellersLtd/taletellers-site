@@ -2,8 +2,12 @@
 
 > **Live site since 12 Nov 2026: "One book, two chapters".** Pages: `index.html` (Chapter I Websites, Chapter II
 > Worlds), `work.html` (case studies), `privacy.html`, `404.html`. `site.js` adds the reveals; the pages work
-> without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo: swap
-> `images/logo-mark.svg` (header) and `favicon.svg`. Credits: `IMAGE_CREDITS.md`. Older notes below describe the
+> without it. Fonts are self-hosted in `fonts/` (Alegreya, Alegreya Sans). Logo (18 Nov 2026): day
+> logo A1 "Double T" for the web side: `images/logo-day-lockup.svg` (blue, paper headers),
+> `images/logo-day-lockup-cream.svg` (home page's night header), `images/logo-day-mark-cream.svg` (the cover),
+> `favicon.svg`, `apple-touch-icon.png`, `images/og-card.png` (share image) and inline in `404.html` (with its favicon as a
+> data URI). The night pixel book `images/logo-mark.svg` (v4) is Chapter II's mark, with its glinting stars.
+> Masters: `Documents/TaleTellers/brand/logo/rebrand-20261116/day-A1-*.svg`. Credits: `IMAGE_CREDITS.md`. Older notes below describe the
 > previous site.
 >
 > **Motion preview (branch `effects-preview-20261112`, not live).** `effects.js` (home page only, deferred, about
