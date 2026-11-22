@@ -1375,7 +1375,7 @@ a:hover { text-decoration-thickness: 2px; }
     .worlds { margin-top: calc(var(--turn-breath) - 100lvh); }
     /* Keyboard: a link that takes focus is scrolled far enough up that the turn has finished, so the page never lies over it */
     .worlds a { scroll-margin-bottom: calc(100lvh - var(--turn-breath)); }
-    .worlds > .wrap > .sky,
+    .worlds-top > .sky,
     .worlds-stars { display: none; }
   }
 
